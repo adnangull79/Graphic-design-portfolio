@@ -1,0 +1,333 @@
+╔══════════════════════════════════════════════════════════════════╗
+║         ADNAN GULL — GRAPHIC DESIGNER PORTFOLIO WEBSITE          ║
+║                    FINAL MASTER PROMPT v2.0                      ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Build a single-file HTML/CSS/JS graphic designer portfolio website for Adnan Gull
+that is so visually stunning, a client or employer is instantly impressed within
+the first 3 seconds of landing on it — no scrolling required.
+
+═══════════════════════════════════════════════════════════════════
+AESTHETIC DIRECTION — COMMIT TO THIS FULLY
+═══════════════════════════════════════════════════════════════════
+
+Theme:        Dark luxury editorial — like a premium design agency site
+Color Palette:
+  - Background:     #0A0A0F (near-black with blue undertone)
+  - Surface:        #111118
+  - Primary Accent: #FF3CAC (electric magenta/pink)
+  - Secondary:      #784BA0 (deep violet)
+  - Tertiary:       #2B86C5 (electric blue)
+  - Gradient:       Linear and radial mixes of all three accent colors
+  - Text Primary:   #FFFFFF
+  - Text Secondary: #A0A0B8
+
+Typography:
+  - Display/Hero font: "Playfair Display" or "Cormorant Garamond" (elegant serif)
+  - Body font:         "DM Sans" or "Outfit" (clean modern sans-serif)
+  - Accent/label:      "Space Mono" (mono for category labels/tags)
+  - Import from Google Fonts
+
+Visual Style:
+  - Glowing neon accents (box-shadow and text-shadow with accent colors)
+  - Glassmorphism cards (backdrop-filter: blur + semi-transparent backgrounds)
+  - Animated gradient mesh background (CSS animation, slow movement)
+  - Grain/noise texture overlay on hero (subtle CSS or SVG filter)
+  - Floating geometric shapes that drift slowly in the background
+  - Smooth scroll behavior on the entire page
+  - Custom animated cursor (a glowing dot that trails the mouse)
+  - Scroll-triggered fade-in and slide-up animations (use IntersectionObserver)
+  - Hover effects: glow, scale, gradient border reveal
+
+═══════════════════════════════════════════════════════════════════
+NAVBAR
+═══════════════════════════════════════════════════════════════════
+
+- Sticky, transparent on top — becomes frosted glass (backdrop-blur) on scroll
+- Logo: "AG" monogram with gradient letters
+- Nav links: Home | About | Skills | Services | Portfolio | Experience | Contact
+- Hover: links get an underline that slides in from left with accent color
+- CTA button: "Hire Me" with glowing magenta border + hover fill
+- Mobile: hamburger menu with animated X, full-screen overlay slide-in menu
+
+═══════════════════════════════════════════════════════════════════
+1. HERO SECTION — MUST BE JAW-DROPPING
+═══════════════════════════════════════════════════════════════════
+
+Layout: Full viewport height (100vh), centered content
+
+Background:
+  - Animated gradient mesh: 3 radial gradients in pink, purple, blue, slowly
+    moving/pulsing using @keyframes (translateX/Y + scale, 8–12s loops)
+  - Subtle SVG noise texture overlay at 4% opacity
+  - 3–4 large blurred geometric shapes (circles/blobs) floating slowly
+
+Content (center-aligned or slightly left):
+  - Small badge label: "Available for Freelance Work ✦" (glowing pill badge)
+  - Main heading: "Adnan Gull" — MASSIVE font (clamp 5rem to 9rem), serif display
+    font, white with a subtle gradient or text-shadow glow
+  - Subheading: "Graphic Designer & Visual Creative"
+    (smaller, letter-spacing: 0.3em, accent color, uppercase mono font)
+  - Tagline (large, elegant): "Designing visuals that turn ideas into impact."
+  - Supporting line: "Creating modern, engaging, and meaningful designs
+    for brands and businesses." (body font, muted color, max-width)
+  - Two CTA buttons side by side:
+      * "View Portfolio" — filled gradient button (pink → purple), glow on hover
+      * "Hire Me" — outlined button, glowing border, fills on hover
+  - Scroll indicator at bottom: animated bouncing arrow or "Scroll" with a line
+
+Animations:
+  - Text elements stagger-fade in (name first, then each line 200ms apart)
+  - Buttons slide up after text
+  - Background shapes animate on load
+
+═══════════════════════════════════════════════════════════════════
+2. ABOUT ME
+═══════════════════════════════════════════════════════════════════
+
+Layout: Two-column on desktop — left: image placeholder, right: text
+
+Left side:
+  - Placeholder image (use a gradient square with "AG" or a CSS avatar)
+  - Decorative accent border/frame around the image (gradient border-radius shape)
+  - Floating badge: "3+ Years Experience"
+
+Right side:
+  - Section label: "About Me" (mono font, accent color, small)
+  - Heading: "Passion Meets Precision"
+  - Body text (natural, warm, professional tone):
+    "I'm Adnan Gull — a graphic designer who believes that great design
+    is more than aesthetics. It's communication. I specialize in crafting
+    visual identities, social media content, and digital experiences that
+    make brands unforgettable. With hands-on experience in freelancing,
+    teaching, and organizational design work, I bring both creativity
+    and strategy to every project."
+  - 3 quick stat pills: "50+ Projects" | "Happy Clients" | "1 Certification"
+  - Download CV button (outlined, small)
+
+═══════════════════════════════════════════════════════════════════
+3. SKILLS SECTION
+═══════════════════════════════════════════════════════════════════
+
+Heading: "Tools & Expertise"
+
+Display as 5 glassmorphism cards in a responsive grid (3 on desktop, 2 tablet, 1 mobile):
+
+Each card contains:
+  - Large icon (SVG or emoji styled large, glowing)
+  - Skill name
+  - Level label ("Advanced" / "Intermediate")
+  - Animated progress bar that fills when scrolled into view
+    (use IntersectionObserver to trigger the CSS width animation)
+  - Subtle gradient glow at bottom of card
+
+Skills:
+  - Adobe Illustrator → 95% → Advanced
+  - Adobe Photoshop   → 92% → Advanced
+  - Canva             → 95% → Advanced
+  - UI/UX Design      → 78% → Intermediate/Advanced
+  - AI Prompting      → 72% → Intermediate
+
+Card hover: lifts up (translateY -8px), border glows brighter
+
+═══════════════════════════════════════════════════════════════════
+4. SERVICES SECTION
+═══════════════════════════════════════════════════════════════════
+
+Heading: "What I Do"
+Subheading: "End-to-end design solutions for brands that want to stand out."
+
+Layout: Responsive grid of 5 cards (3+2 or 2+3)
+
+Each service card (glassmorphism style):
+  - Large gradient icon at top
+  - Service title (bold)
+  - 2-line description
+  - "Learn More →" link in accent color
+  - Hover: card glows, icon scales up, gradient border appears
+
+Services:
+  1. Logo Design
+     "Unique, memorable logos that capture your brand's soul."
+  2. Social Media Design
+     "Scroll-stopping posts, stories, and banners for every platform."
+  3. Branding & Identity Design
+     "Complete visual identity systems that make brands unforgettable."
+  4. UI/UX Design
+     "Clean, user-centered interfaces designed to convert and delight."
+  5. Business Card Design
+     "Professional cards that leave a lasting first impression."
+
+═══════════════════════════════════════════════════════════════════
+5. PORTFOLIO SECTION — MOST IMPORTANT, MAKE IT SPECTACULAR
+═══════════════════════════════════════════════════════════════════
+
+Heading: "Selected Works"
+Subheading: "A showcase of creativity, strategy, and craft."
+
+Filter tabs: All | Logos | Social Media | Posters | Business Cards | UI/UX
+  - Active tab: gradient background, glowing
+  - Clicking a tab filters the grid with a smooth CSS transition (opacity + scale)
+
+Grid: Masonry-style or uniform 3-column grid (2 on tablet, 1 on mobile)
+  - 10–12 placeholder portfolio items total (2–3 per category)
+  - Each item uses a unique gradient color block as placeholder image
+    (vary the gradient colors to look visually distinct and colorful)
+
+Each portfolio card:
+  - Gradient placeholder image (full width, 16:9 or square ratio)
+  - Category tag (mono font, small, accent color)
+  - Project title
+  - On hover:
+      * Dark overlay slides in from bottom
+      * Title and "View Project →" appear on the overlay
+      * Card scales up slightly (scale 1.03)
+      * Glow effect on card border
+
+"View All Projects" button: large, centered below grid, gradient outlined
+
+═══════════════════════════════════════════════════════════════════
+6. EXPERIENCE SECTION
+═══════════════════════════════════════════════════════════════════
+
+Heading: "My Journey"
+
+Display as a vertical timeline (line down the center on desktop,
+left-aligned on mobile):
+
+Each timeline node:
+  - Glowing dot on the timeline line (accent color)
+  - Role title (bold, white)
+  - Organization name (accent color)
+  - Natural description (NOT robotic — see below)
+  - Animated: slides in from left or right alternately on scroll
+
+Entries:
+
+1. Graphic Design Instructor
+   Ujala Technical Institute
+   "Teaching is one of the most rewarding parts of my journey.
+   At Ujala Technical Institute, I guide students through the world
+   of graphic design — from foundational principles to industry-standard
+   tools — helping them build skills they can turn into real careers."
+
+2. Freelance Graphic Designer
+   Fiverr
+   "Through Fiverr, I've had the privilege of working with clients
+   from across the globe — from startups needing their first logo
+   to established businesses refreshing their brand. Every project
+   is a new challenge I genuinely enjoy solving."
+
+3. Graphic Designer
+   University Literature Society
+   "Creative work for a literary community is something close to
+   my heart. I handled all visual communication — posters, event
+   banners, social media — helping the society build a strong,
+   recognizable identity on campus."
+
+4. Local Business Projects
+   Various Clients
+   "Working closely with local entrepreneurs taught me the value
+   of practical design — visuals that don't just look good, but
+   actually help a business grow and connect with its audience."
+
+═══════════════════════════════════════════════════════════════════
+7. CERTIFICATIONS
+═══════════════════════════════════════════════════════════════════
+
+Heading: "Certifications"
+
+Display as a single premium badge/card:
+  - Gradient background card with glowing border
+  - Large star or certificate icon
+  - "DigiSkills — Graphic Design Course"
+  - Issued by: DigiSkills.pk
+  - Small verified checkmark badge
+
+═══════════════════════════════════════════════════════════════════
+8. TESTIMONIALS
+═══════════════════════════════════════════════════════════════════
+
+Heading: "What Clients Say"
+
+Display 3 testimonial cards in a row (stack on mobile):
+
+Card style: glassmorphism, large quote mark in background (40% opacity)
+
+1. ★★★★★
+   "Adnan delivered exactly what I envisioned — and then some.
+   His creativity and professionalism made the whole process seamless."
+   — Sarah K., Brand Owner
+
+2. ★★★★★
+   "Outstanding quality and great communication throughout.
+   My social media engagement increased significantly after his designs."
+   — Bilal M., Digital Entrepreneur
+
+3. ★★★★★
+   "Highly recommended. Adnan understands branding on a deep level.
+   He designed our full identity and we couldn't be happier."
+   — Amina R., Startup Founder
+
+═══════════════════════════════════════════════════════════════════
+9. CALL TO ACTION SECTION
+═══════════════════════════════════════════════════════════════════
+
+Full-width section with animated gradient background (same mesh as hero)
+
+Content (centered):
+  - Decorative small text: "Ready to create something great?"
+  - Large heading: "Let's Work Together"
+  - Paragraph: "Have an idea or project? Whether it's a brand identity,
+    social media presence, or UI design — let's create something
+    amazing together."
+  - Two buttons: "Hire Me" (filled gradient) | "Contact Me" (outlined)
+
+═══════════════════════════════════════════════════════════════════
+10. FOOTER
+═══════════════════════════════════════════════════════════════════
+
+Dark background (#07070C), top border with gradient line
+
+Layout: 3 columns on desktop
+
+Left: "AG" gradient logo + tagline "Designing ideas into impact."
+
+Center: Quick Links (Home, About, Portfolio, Services, Contact)
+
+Right:
+  - "Get In Touch"
+  - Email: adnangull@email.com
+  - Social icons: Fiverr | LinkedIn | Instagram
+    (icon buttons with hover glow effect)
+
+Bottom bar:
+  "© 2026 Adnan Gull. All Rights Reserved. | Crafted with passion ✦"
+
+═══════════════════════════════════════════════════════════════════
+TECHNICAL REQUIREMENTS
+═══════════════════════════════════════════════════════════════════
+
+- Single HTML file with embedded CSS and JS (no external frameworks)
+- Google Fonts: import Playfair Display + DM Sans + Space Mono
+- Custom animated cursor (glowing dot + ring that follows mouse)
+- IntersectionObserver for scroll-triggered animations
+  (fade-in + slide-up for all sections as they enter viewport)
+- CSS custom properties (variables) for all colors, used consistently
+- Smooth scroll: html { scroll-behavior: smooth; }
+- Mobile responsive: breakpoints at 768px and 480px
+- Hamburger menu for mobile (animated toggle)
+- Portfolio filter: pure JS, toggle 'active' class + CSS transition
+- Progress bars animate on scroll (start at 0%, animate to target %)
+- All hover transitions: 0.3s ease
+- Page load: staggered hero text animation using animation-delay
+
+═══════════════════════════════════════════════════════════════════
+FINAL GOAL
+═══════════════════════════════════════════════════════════════════
+
+The final result must look like a portfolio that costs $3,000+ to build.
+Anyone — client, employer, recruiter — should look at it and immediately
+think: "This person is a serious, talented designer."
+
+The design itself IS the proof of skill. Make it extraordinary.
