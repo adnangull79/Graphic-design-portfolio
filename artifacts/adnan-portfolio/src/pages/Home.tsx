@@ -518,10 +518,14 @@ export default function Home() {
                 </div>
               </div>
               
-              <button className="flex items-center space-x-2 px-6 py-3 border border-white/20 rounded hover:border-[#FF3CAC] hover:text-[#FF3CAC] transition-colors font-mono uppercase text-sm tracking-wider group">
+              <a
+                href="/Adnan_Gull_CV.pdf"
+                download="Adnan_Gull_CV.pdf"
+                className="flex items-center space-x-2 px-6 py-3 border border-white/20 rounded hover:border-[#FF3CAC] hover:text-[#FF3CAC] transition-colors font-mono uppercase text-sm tracking-wider group"
+              >
                 <Download size={16} className="group-hover:translate-y-1 transition-transform" />
                 <span>Download CV</span>
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -544,7 +548,7 @@ export default function Home() {
               { name: "Adobe Photoshop", level: "Advanced", percent: 92, color: "bg-blue-500", shadow: "rgba(59,130,246,0.4)" },
               { name: "Canva", level: "Advanced", percent: 95, color: "bg-cyan-400", shadow: "rgba(34,211,238,0.4)" },
               { name: "UI/UX Design", level: "Intermediate", percent: 78, color: "bg-[#FF3CAC]", shadow: "rgba(255,60,172,0.4)" },
-              { name: "AI Prompting", level: "Intermediate", percent: 72, color: "bg-[#784BA0]", shadow: "rgba(120,75,160,0.4)" },
+              { name: "AI Prompting", level: "Advanced", percent: 90, color: "bg-[#784BA0]", shadow: "rgba(120,75,160,0.4)" },
             ].map((skill, index) => (
               <motion.div 
                 key={skill.name}
@@ -592,6 +596,7 @@ export default function Home() {
               { title: "Branding & Identity", desc: "Complete visual identity systems that make brands unforgettable.", icon: <Star className="w-10 h-10 text-[#2B86C5]" /> },
               { title: "UI/UX Design", desc: "Clean, user-centered interfaces designed to convert and delight.", icon: <FileImage className="w-10 h-10 text-[#FF3CAC]" /> },
               { title: "Business Cards", desc: "Professional cards that leave a lasting first impression.", icon: <Briefcase className="w-10 h-10 text-[#784BA0]" /> },
+              { title: "Posters & Flyer Design", desc: "Eye-catching promotional prints that demand attention and drive action.", icon: <FileImage className="w-10 h-10 text-[#2B86C5]" /> },
             ].map((service, index) => (
               <motion.div 
                 key={service.title}
@@ -691,6 +696,11 @@ export default function Home() {
                 role: "Freelance Graphic Designer",
                 company: "Freelance",
                 desc: "Working independently with clients from across the globe — from startups needing their first logo to established businesses refreshing their brand. Every project is a new challenge I genuinely enjoy solving."
+              },
+              {
+                role: "Graphic Designer",
+                company: "Adobe Stock Contributor",
+                desc: "Designing and uploading high-quality vector graphics and digital assets for commercial licensing on Adobe Stock — building a growing library of work used by creators and businesses worldwide."
               },
               {
                 role: "Graphic Designer",
