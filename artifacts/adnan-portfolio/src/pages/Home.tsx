@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, Download, Award, Briefcase, FileImage, Layout, Star, Mail, Linkedin, Instagram, Twitter } from "lucide-react";
-import { SiFiverr } from "react-icons/si";
+import adnanPhoto from "@assets/AI_Eraser_image_(9)_(1)_(1)_1776065620675.jpg";
 
 // --- Components ---
 
@@ -160,9 +160,6 @@ const Footer = () => (
             <Mail className="w-4 h-4 mr-2" /> adnangull@email.com
           </a>
           <div className="flex space-x-4">
-            <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,60,172,0.3)] transition-all">
-              <SiFiverr className="w-4 h-4" />
-            </a>
             <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/50 hover:shadow-[0_0_15px_rgba(43,134,197,0.3)] transition-all">
               <Linkedin className="w-4 h-4" />
             </a>
@@ -353,9 +350,7 @@ export default function Home() {
             >
               <span>Trusted by 50+ clients worldwide</span>
               <span>✦</span>
-              <span>Fiverr Seller</span>
-              <span>✦</span>
-              <span>DigiSkills Certified</span>
+              <span>Freelance Designer</span>
             </motion.div>
           </div>
 
@@ -436,7 +431,7 @@ export default function Home() {
               className="absolute bottom-10 -left-4 lg:-left-12 z-30 flex items-center px-4 py-2 rounded-full"
               style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.1)", transform: "rotate(4deg)" }}
             >
-              <span className="text-xs font-mono text-white/90">★ 5.0 Fiverr Rating</span>
+              <span className="text-xs font-mono text-white/90">★ 5.0 Client Rating</span>
             </motion.div>
             
             <motion.div
@@ -479,9 +474,14 @@ export default function Home() {
               className="relative"
             >
               <div className="aspect-[4/5] w-full max-w-md mx-auto relative group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#784BA0] via-[#07060F] to-[#FF3CAC] rounded-lg blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-                <div className="absolute inset-0 border border-white/10 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center text-8xl font-serif text-white/20">
-                  AG
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#784BA0] via-[#07060F] to-[#FF3CAC] rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+                <div className="absolute inset-0 border border-white/10 rounded-2xl overflow-hidden">
+                  <img
+                    src={adnanPhoto}
+                    alt="Adnan Gull"
+                    className="w-full h-full object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07060F]/60 via-transparent to-transparent" />
                 </div>
                 
                 <div className="absolute -bottom-8 -right-8 glass px-6 py-4 rounded-lg shadow-2xl border-primary/30">
@@ -513,8 +513,8 @@ export default function Home() {
                   <p className="text-xs font-mono text-muted-foreground uppercase">Happy Clients</p>
                 </div>
                 <div className="glass p-4 rounded-lg text-center border-t-[#2B86C5]/50">
-                  <h4 className="text-2xl font-serif text-white mb-1">1</h4>
-                  <p className="text-xs font-mono text-muted-foreground uppercase">Certification</p>
+                  <h4 className="text-2xl font-serif text-white mb-1">3+</h4>
+                  <p className="text-xs font-mono text-muted-foreground uppercase">Years Active</p>
                 </div>
               </div>
               
@@ -689,8 +689,8 @@ export default function Home() {
               },
               {
                 role: "Freelance Graphic Designer",
-                company: "Fiverr",
-                desc: "Through Fiverr, I've had the privilege of working with clients from across the globe — from startups needing their first logo to established businesses refreshing their brand. Every project is a new challenge I genuinely enjoy solving."
+                company: "Freelance",
+                desc: "Working independently with clients from across the globe — from startups needing their first logo to established businesses refreshing their brand. Every project is a new challenge I genuinely enjoy solving."
               },
               {
                 role: "Graphic Designer",
@@ -723,27 +723,6 @@ export default function Home() {
                 </motion.div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="py-20 bg-card/30">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-serif font-bold text-white">Certifications</h3>
-          </div>
-          <div className="max-w-2xl mx-auto glass p-8 rounded-xl flex flex-col sm:flex-row items-center sm:space-x-8 border border-[#2B86C5]/20 shadow-[0_0_30px_rgba(43,134,197,0.1)] hover:shadow-[0_0_40px_rgba(43,134,197,0.2)] transition-shadow">
-            <div className="w-20 h-20 bg-[#2B86C5]/20 rounded-full flex items-center justify-center mb-6 sm:mb-0 shrink-0">
-              <Award className="w-10 h-10 text-[#2B86C5]" />
-            </div>
-            <div className="text-center sm:text-left">
-              <h4 className="text-2xl font-serif text-white mb-2">DigiSkills — Graphic Design Course</h4>
-              <p className="text-muted-foreground font-mono text-sm mb-3">Issued by: DigiSkills.pk</p>
-              <span className="inline-flex items-center text-xs font-mono uppercase text-[#00F5A0] bg-[#00F5A0]/10 px-3 py-1 rounded-full border border-[#00F5A0]/20">
-                <Star className="w-3 h-3 mr-1 fill-current" /> Verified Certificate
-              </span>
-            </div>
           </div>
         </div>
       </section>
