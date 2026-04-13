@@ -415,17 +415,6 @@ export default function Home() {
             {/* Floating Mini Cards */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [-5, 5, -5] }}
-              transition={{ opacity: { delay: 1.5 }, scale: { delay: 1.5 }, y: { duration: 5, repeat: Infinity, delay: 0.5 } }}
-              className="absolute -top-4 right-0 lg:-right-10 z-30 flex items-center px-4 py-2 rounded-full"
-              style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.1)", transform: "rotate(-6deg)" }}
-            >
-              <Star className="w-3 h-3 text-[#FFBC2E] mr-2 fill-current" />
-              <span className="text-xs font-mono text-white/90">+24 Projects This Year</span>
-            </motion.div>
-
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1, y: [5, -5, 5] }}
               transition={{ opacity: { delay: 1.8 }, scale: { delay: 1.8 }, y: { duration: 6, repeat: Infinity, delay: 1 } }}
               className="absolute bottom-10 -left-4 lg:-left-12 z-30 flex items-center px-4 py-2 rounded-full"
@@ -503,11 +492,7 @@ export default function Home() {
                 I'm Adnan Gull — a graphic designer who believes that great design is more than aesthetics. It's communication. I specialize in crafting visual identities, social media content, and digital experiences that make brands unforgettable. With hands-on experience in freelancing, teaching, and organizational design work, I bring both creativity and strategy to every project.
               </p>
               
-              <div className="grid grid-cols-3 gap-4 mb-10">
-                <div className="glass p-4 rounded-lg text-center border-t-[#FF3CAC]/50">
-                  <h4 className="text-2xl font-serif text-white mb-1">50+</h4>
-                  <p className="text-xs font-mono text-muted-foreground uppercase">Projects</p>
-                </div>
+              <div className="grid grid-cols-2 gap-4 mb-10">
                 <div className="glass p-4 rounded-lg text-center border-t-[#784BA0]/50">
                   <h4 className="text-2xl font-serif text-white mb-1">100%</h4>
                   <p className="text-xs font-mono text-muted-foreground uppercase">Happy Clients</p>
@@ -732,43 +717,6 @@ export default function Home() {
                   </div>
                 </motion.div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#FF3CAC] font-mono text-sm uppercase tracking-widest block mb-4">Testimonials</span>
-            <h3 className="text-4xl md:text-5xl font-serif font-bold text-white">What Clients Say.</h3>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { text: "Adnan delivered exactly what I envisioned — and then some. His creativity and professionalism made the whole process seamless.", author: "Sarah K.", role: "Brand Owner" },
-              { text: "Outstanding quality and great communication throughout. My social media engagement increased significantly after his designs.", author: "Bilal M.", role: "Digital Entrepreneur" },
-              { text: "Highly recommended. Adnan understands branding on a deep level. He designed our full identity and we couldn't be happier.", author: "Amina R.", role: "Startup Founder" }
-            ].map((testimonial, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="glass p-8 rounded-xl relative group hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="text-6xl font-serif text-white/5 absolute top-4 left-6 pointer-events-none group-hover:text-[#FF3CAC]/10 transition-colors">"</div>
-                <div className="flex mb-6 text-[#FF3CAC]">
-                  {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-muted-foreground mb-8 relative z-10 italic">"{testimonial.text}"</p>
-                <div>
-                  <p className="text-white font-serif text-lg">{testimonial.author}</p>
-                  <p className="text-xs font-mono text-muted-foreground uppercase">{testimonial.role}</p>
-                </div>
-              </motion.div>
             ))}
           </div>
         </div>
