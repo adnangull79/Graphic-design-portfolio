@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, Download, Award, Briefcase, FileImage, Layout, Star, Mail, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Menu, X, ArrowRight, Download, Award, Briefcase, FileImage, Layout, Star, Mail, Linkedin, Instagram, Twitter, Copy, Check } from "lucide-react";
 import adnanPhoto from "@assets/AI_Eraser_image_(9)_(1)_(1)_1776065620675.jpg";
+import whatsappIcon from "@assets/whatsapp_1776320901147.png";
+import emailIcon from "@assets/eamil_1776320901147.png";
 
 // --- Components ---
 
@@ -51,7 +53,94 @@ const Cursor = () => {
   );
 };
 
-const Navbar = () => {
+const ContactModal = ({ onClose }: { onClose: () => void }) => {
+  const [copied, setCopied] = useState(false);
+  const email = "adnan122550gull@gmail.com";
+  const whatsappUrl = "https://wa.me/923100871543";
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center px-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0, y: 24 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.85, opacity: 0, y: 24 }}
+        transition={{ type: "spring", damping: 22, stiffness: 300 }}
+        className="relative z-10 w-full max-w-sm rounded-2xl border border-white/10 p-8 shadow-2xl"
+        style={{ background: "rgba(7,6,15,0.95)", backdropFilter: "blur(20px)" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors"
+        >
+          <X size={20} />
+        </button>
+
+        <h2 className="text-2xl font-serif text-white mb-1">Let's Connect</h2>
+        <p className="text-muted-foreground text-sm font-mono mb-8">Choose how you'd like to reach out</p>
+
+        {/* WhatsApp */}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 w-full p-4 rounded-xl border border-[#25D366]/30 hover:border-[#25D366]/60 hover:bg-[#25D366]/10 transition-all group mb-3"
+        >
+          <img src={whatsappIcon} alt="WhatsApp" className="w-11 h-11 rounded-xl object-contain" />
+          <div className="text-left">
+            <p className="text-white font-mono text-sm font-bold uppercase tracking-wider">WhatsApp</p>
+            <p className="text-white/50 font-mono text-xs mt-0.5">+92 310 0871543</p>
+          </div>
+          <ArrowRight className="ml-auto w-4 h-4 text-[#25D366] group-hover:translate-x-1 transition-transform" />
+        </a>
+
+        {/* Email */}
+        <div className="flex items-center gap-4 w-full p-4 rounded-xl border border-[#2B86C5]/30 hover:border-[#2B86C5]/60 transition-all">
+          <img src={emailIcon} alt="Email" className="w-11 h-11 rounded-xl object-contain" />
+          <div className="text-left flex-1 min-w-0">
+            <p className="text-white font-mono text-sm font-bold uppercase tracking-wider">Email</p>
+            <p className="text-white/50 font-mono text-xs mt-0.5 truncate">{email}</p>
+          </div>
+          <button
+            onClick={copyEmail}
+            title="Copy email"
+            className="ml-auto shrink-0 w-9 h-9 rounded-lg flex items-center justify-center border border-[#2B86C5]/30 hover:bg-[#2B86C5]/20 transition-colors text-[#2B86C5]"
+          >
+            {copied ? <Check size={15} /> : <Copy size={15} />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {copied && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="text-center text-[#25D366] font-mono text-xs mt-3"
+            >
+              Email copied to clipboard!
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const Navbar = ({ onContact = () => {} }: { onContact?: () => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,9 +179,9 @@ const Navbar = () => {
               </Link>
             )
           ))}
-          <a href="#contact" className="px-5 py-2 border border-primary text-primary font-mono text-sm uppercase tracking-wider rounded shadow-[0_0_10px_rgba(255,60,172,0.3)] hover:bg-primary hover:text-white hover:shadow-[0_0_20px_rgba(255,60,172,0.6)] transition-all duration-300">
+          <button onClick={onContact} className="px-5 py-2 border border-primary text-primary font-mono text-sm uppercase tracking-wider rounded shadow-[0_0_10px_rgba(255,60,172,0.3)] hover:bg-primary hover:text-white hover:shadow-[0_0_20px_rgba(255,60,172,0.6)] transition-all duration-300">
             Hire Me
-          </a>
+          </button>
         </div>
 
         <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
@@ -120,9 +209,9 @@ const Navbar = () => {
                 </Link>
               )
             ))}
-            <a href="#contact" onClick={() => setIsOpen(false)} className="px-6 py-3 bg-primary text-white font-mono text-sm uppercase tracking-wider rounded shadow-[0_0_15px_rgba(255,60,172,0.5)]">
+            <button onClick={() => { setIsOpen(false); onContact(); }} className="px-6 py-3 bg-primary text-white font-mono text-sm uppercase tracking-wider rounded shadow-[0_0_15px_rgba(255,60,172,0.5)]">
               Hire Me
-            </a>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -183,6 +272,7 @@ export { Cursor, Navbar, Footer };
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
+  const [showContact, setShowContact] = useState(false);
   
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem('ag-loaded');
@@ -235,7 +325,10 @@ export default function Home() {
       
       <Cursor />
       <div className="noise-overlay" />
-      <Navbar />
+      <AnimatePresence>
+        {showContact && <ContactModal onClose={() => setShowContact(false)} />}
+      </AnimatePresence>
+      <Navbar onContact={() => setShowContact(true)} />
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20">
@@ -337,9 +430,9 @@ export default function Home() {
               <Link href="/portfolio" className="px-10 py-4 font-mono uppercase tracking-widest text-sm text-white transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #FF3CAC, #784BA0)", borderRadius: "50px", boxShadow: "0 0 30px rgba(255,60,172,0.4)" }}>
                 View Portfolio
               </Link>
-              <a href="#contact" className="px-10 py-4 font-mono uppercase tracking-widest text-sm text-white transition-all hover:scale-105 hover:bg-[#FF3CAC]/10" style={{ border: "2px solid rgba(255,60,172,0.6)", borderRadius: "50px" }}>
+              <button onClick={() => setShowContact(true)} className="px-10 py-4 font-mono uppercase tracking-widest text-sm text-white transition-all hover:scale-105 hover:bg-[#FF3CAC]/10" style={{ border: "2px solid rgba(255,60,172,0.6)", borderRadius: "50px" }}>
                 Hire Me
-              </a>
+              </button>
             </motion.div>
 
             <motion.div
@@ -732,12 +825,12 @@ export default function Home() {
             Have an idea or project? Whether it's a brand identity, social media presence, or UI design — let's create something amazing together.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="mailto:adnangull@email.com" className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-[#FF3CAC] to-[#784BA0] text-white font-mono uppercase tracking-widest text-sm rounded shadow-[0_0_20px_rgba(255,60,172,0.4)] hover:shadow-[0_0_30px_rgba(255,60,172,0.7)] transition-all hover:scale-105 flex justify-center">
+            <button onClick={() => setShowContact(true)} className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-[#FF3CAC] to-[#784BA0] text-white font-mono uppercase tracking-widest text-sm rounded shadow-[0_0_20px_rgba(255,60,172,0.4)] hover:shadow-[0_0_30px_rgba(255,60,172,0.7)] transition-all hover:scale-105 flex justify-center">
               Hire Me
-            </a>
-            <a href="mailto:adnangull@email.com" className="w-full sm:w-auto px-10 py-5 border border-white/20 text-white font-mono uppercase tracking-widest text-sm rounded hover:bg-white/5 transition-all hover:scale-105 hover:border-white/50 flex justify-center">
+            </button>
+            <button onClick={() => setShowContact(true)} className="w-full sm:w-auto px-10 py-5 border border-white/20 text-white font-mono uppercase tracking-widest text-sm rounded hover:bg-white/5 transition-all hover:scale-105 hover:border-white/50 flex justify-center">
               Contact Me
-            </a>
+            </button>
           </div>
         </div>
       </section>
