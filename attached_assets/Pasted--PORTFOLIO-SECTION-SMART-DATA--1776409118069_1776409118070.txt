@@ -1,0 +1,163 @@
+═══════════════════════════════════════════════════════════════════
+PORTFOLIO SECTION — SMART DATA PROMPT
+Show Real Work First, Dummy Only Where Empty
+═══════════════════════════════════════════════════════════════════
+
+Update the portfolio section on BOTH index.html and portfolio.html.
+The rule is simple:
+  ✦ If a project slot has a real image path defined → show it
+  ✦ If no real image exists yet → show a styled gradient placeholder
+    with a "Coming Soon" or "Work in Progress" label
+  ✦ Never show a blank black card like currently visible in the screenshot
+
+DO NOT change any other section. Only update the portfolio data logic.
+
+═══════════════════════════════════════════════════════════════════
+HOW TO STRUCTURE THE DATA (JS Array)
+═══════════════════════════════════════════════════════════════════
+
+Define ALL projects in a single JS array at the top of the script.
+Each project object has these fields:
+
+{
+  title:    "Project Name",
+  category: "logos",           // logos | social-media | posters |
+                               // business-cards | ui-ux |
+                               // adobe-stock | ai-generated
+  image:    "images/logos/tt-clothing-logo.png",  // REAL path if exists
+            OR null,           // null = no image yet → show dummy
+  isNew:    true/false,        // optional — shows "NEW" badge
+  desc:     "Short description"
+}
+
+═══════════════════════════════════════════════════════════════════
+RENDERING LOGIC (JavaScript)
+═══════════════════════════════════════════════════════════════════
+
+When rendering each portfolio card, check:
+
+  if (project.image !== null) {
+    // Render real image card
+    imageHTML = `<img src="${project.image}" alt="${project.title}"
+                  onerror="this.parentElement.classList.add('img-failed')">`
+    // onerror fallback: if image path is wrong or file missing,
+    // automatically falls back to dummy gradient — safety net
+  } else {
+    // Render dummy placeholder card
+    imageHTML = dummy gradient div (see dummy card spec below)
+  }
+
+ALSO handle the onerror fallback on ALL real images:
+  If an image fails to load (file missing, wrong path, etc.),
+  replace it with the dummy gradient automatically.
+  Add this as a CSS class toggle — clean, no broken image icons ever.
+
+═══════════════════════════════════════════════════════════════════
+DUMMY PLACEHOLDER CARD SPEC
+═══════════════════════════════════════════════════════════════════
+
+When image is null OR image fails to load, show this instead of
+a blank black card:
+
+  Background: unique gradient per card (cycle through these):
+    gradient 1: linear-gradient(135deg, #FF3CAC 0%, #784BA0 100%)
+    gradient 2: linear-gradient(135deg, #784BA0 0%, #2B86C5 100%)
+    gradient 3: linear-gradient(135deg, #2B86C5 0%, #00F5A0 100%)
+    gradient 4: linear-gradient(135deg, #FF6B35 0%, #FF3CAC 100%)
+    gradient 5: linear-gradient(135deg, #00F5A0 0%, #784BA0 100%)
+    gradient 6: linear-gradient(135deg, #1A1A2E 0%, #FF3CAC 100%)
+    (assign by index % 6 so every card gets a different gradient)
+
+  Inside the placeholder:
+    - Category initial letter (large, 3rem, Playfair Display,
+      white, opacity: 0.2, centered)
+    - Small label at bottom-center:
+      "Coming Soon"
+      Space Mono, 0.65rem, white, opacity: 0.5,
+      background: rgba(0,0,0,0.3), padding: 3px 8px, border-radius: 4px
+
+  The placeholder must look INTENTIONAL and DESIGNED —
+  not like an error or missing content.
+  A client should think "he's working on adding more" not "this is broken."
+
+═══════════════════════════════════════════════════════════════════
+CURRENT REAL PROJECT DATA (what exists right now)
+═══════════════════════════════════════════════════════════════════
+
+Based on the screenshot, the following real image EXISTS in the site:
+
+LOGOS:
+  - Title: "T.T Clothing Logo"
+    image: use whatever path is currently working for this image
+           (it is already rendering — keep the exact same src path)
+    category: "logos"
+    isNew: true
+    desc: "Brand logo design for a clothing label"
+
+ALL OTHER LOGO SLOTS: set image: null → show dummy "Coming Soon"
+ALL SOCIAL MEDIA slots: set image: null → show dummy
+ALL POSTERS slots: set image: null → show dummy
+ALL BUSINESS CARDS slots: set image: null → show dummy
+ALL UI/UX slots: set image: null → show dummy
+ALL ADOBE STOCK slots: set image: null → show dummy
+ALL AI-GENERATED slots: set image: null → show dummy
+
+═══════════════════════════════════════════════════════════════════
+HOW TO ADD REAL IMAGES LATER (instructions to add as HTML comment)
+═══════════════════════════════════════════════════════════════════
+
+Add this comment block at the top of the portfolioData array in JS:
+
+/*
+  HOW TO ADD YOUR REAL WORK:
+  1. Save your image in the /images/[category]/ folder
+     Example: /images/logos/my-logo.png
+  2. Find the matching project object in this array
+  3. Change   image: null
+     to       image: "images/logos/my-logo.png"
+  4. Save the file — your real image will show automatically.
+  If an image path is wrong, the site auto-shows the gradient
+  placeholder so nothing ever looks broken.
+*/
+
+═══════════════════════════════════════════════════════════════════
+CARD COUNT PER CATEGORY (keep these minimums)
+═══════════════════════════════════════════════════════════════════
+
+Always show AT LEAST these many cards per category
+(fill remaining slots with dummy if real images not yet added):
+
+  Logos:          6 cards  (1 real + 5 dummy)
+  Social Media:   8 cards  (0 real + 8 dummy)
+  Posters:        6 cards  (0 real + 6 dummy)
+  Business Cards: 4 cards  (0 real + 4 dummy)
+  UI/UX:          4 cards  (0 real + 4 dummy)
+  Adobe Stock:    6 cards  (0 real + 6 dummy)
+  AI-Generated:   4 cards  (0 real + 4 dummy)
+
+This ensures the portfolio never looks empty or sparse —
+even with only 1 real image uploaded so far, the grid looks full.
+
+═══════════════════════════════════════════════════════════════════
+VISUAL CONSISTENCY RULES
+═══════════════════════════════════════════════════════════════════
+
+✦ Real image cards and dummy cards must be SAME SIZE exactly
+  — no layout shift between them
+✦ Real images: object-fit: cover, width: 100%, height: 100%
+✦ Dummy cards: same dimensions as real image area
+✦ Both card types have identical hover effects (overlay, glow, zoom)
+✦ "Coming Soon" label only appears on dummy cards, never on real ones
+✦ "NEW" badge can appear on both real and dummy cards (if isNew: true)
+✦ No broken image icons — ever. The onerror fallback handles this.
+
+═══════════════════════════════════════════════════════════════════
+FINAL RESULT
+═══════════════════════════════════════════════════════════════════
+
+✦ The 1 real logo (T.T Clothing) shows as a real image card
+✦ All other slots show beautiful gradient placeholders
+✦ Nothing looks black, broken, or empty — ever
+✦ As Adnan uploads more work, he just changes null → image path
+✦ The portfolio grows naturally and always looks professional
+✦ Clients see a full, active portfolio from day one

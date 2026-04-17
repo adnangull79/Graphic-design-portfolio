@@ -67,26 +67,44 @@ export default function Portfolio() {
     { id: 17, title: "KiTAB",                     desc: "Book brand — Urdu-inspired geometric letterform in monochrome",  category: "Logos", color: "from-[#000] to-[#222]",             image: imgKitab },
     { id: 18, title: "Messi Lettermark",          desc: "Sports ME monogram with a football at the heart of the mark",   category: "Logos", color: "from-[#031a0d] to-[#062a18]",      image: imgMessi },
     { id: 19, title: "RZA Associates",            desc: "Real estate logo — rooftop arch framing a city skyline",         category: "Logos", color: "from-[#000] to-[#001040]",          image: imgRza },
-    // Social Media
-    { id: 20, title: "Eid Campaign Posts",        desc: "Series of festive social graphics",                              category: "Social Media", color: "from-[#784BA0] to-[#2B86C5]" },
-    { id: 21, title: "Product Launch Story",      desc: "Instagram story set",                                            category: "Social Media", color: "from-[#FF3CAC] to-[#FF6B35]" },
-    { id: 22, title: "Motivational Quote Series", desc: "Typography-forward posts",                                       category: "Social Media", color: "from-[#00F5A0] to-[#2B86C5]" },
-    // Posters
-    { id: 23, title: "Music Festival Poster",     desc: "Bold typographic design",                                        category: "Posters",      color: "from-[#1A1A2E] via-[#FF3CAC] to-[#784BA0]" },
-    { id: 24, title: "Corporate Event Flyer",     desc: "Clean professional layout",                                      category: "Posters",      color: "from-[#0A0A0F] to-[#2B86C5]" },
-    // Business Cards
-    { id: 25, title: "Luxury Business Card",      desc: "Minimal dark card design",                                       category: "Business Cards", color: "from-[#111118] to-[#784BA0]" },
-    { id: 26, title: "Creative Studio Card",      desc: "Bold colorful identity",                                         category: "Business Cards", color: "from-[#FF6B35] to-[#FF3CAC]" },
-    // UI/UX
-    { id: 27, title: "E-Commerce App UI",         desc: "Mobile shopping interface",                                      category: "UI/UX",        color: "from-[#0A0A0F] via-[#2B86C5] to-[#00F5A0]" },
-    { id: 28, title: "Dashboard Design",          desc: "SaaS analytics dashboard",                                       category: "UI/UX",        color: "from-[#784BA0] to-[#FF3CAC]" },
-    // Adobe Stock
-    { id: 29, title: "Abstract Vector Pack",      desc: "Bold geometric abstract compositions for commercial licensing",  category: "Adobe Stock",  color: "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]" },
-    { id: 32, title: "Digital Art Collection",    desc: "Vivid abstract digital illustrations uploaded to Adobe Stock",   category: "Adobe Stock",  color: "from-[#2B86C5] via-[#784BA0] to-[#FF3CAC]" },
-    { id: 33, title: "Gradient Texture Set",      desc: "High-resolution gradient textures and backgrounds",              category: "Adobe Stock",  color: "from-[#00F5A0] via-[#2B86C5] to-[#784BA0]" },
-    // AI-Generated
-    { id: 30, title: "AI Brand Concept",          desc: "AI-assisted brand identity",                                     category: "AI-Generated", color: "from-[#00F5A0] to-[#784BA0]" },
-    { id: 31, title: "Surreal Digital Art",       desc: "AI-prompted visual artwork",                                     category: "AI-Generated", color: "from-[#FF3CAC] to-[#2B86C5]" },
+    // Social Media — 8 cards
+    { id: 20, title: "Eid Campaign Posts",        desc: "Series of festive social graphics for Eid celebrations",                category: "Social Media", color: "from-[#784BA0] to-[#2B86C5]" },
+    { id: 21, title: "Product Launch Story",      desc: "Instagram story set for a new product reveal",                          category: "Social Media", color: "from-[#FF3CAC] to-[#FF6B35]" },
+    { id: 22, title: "Motivational Quote Series", desc: "Typography-forward posts for daily engagement",                         category: "Social Media", color: "from-[#00F5A0] to-[#2B86C5]" },
+    { id: 34, title: "Ramadan Campaign",          desc: "Themed social graphics for Ramadan brand campaigns",                    category: "Social Media", color: "from-[#FF3CAC] to-[#784BA0]" },
+    { id: 35, title: "Reel Cover Designs",        desc: "Eye-catching cover thumbnails for Instagram reels",                     category: "Social Media", color: "from-[#2B86C5] to-[#00F5A0]" },
+    { id: 36, title: "Brand Highlight Icons",     desc: "Custom icon sets for Instagram story highlight covers",                 category: "Social Media", color: "from-[#FF6B35] to-[#FF3CAC]" },
+    { id: 37, title: "Event Countdown Series",    desc: "Multi-post countdown graphic series for social events",                 category: "Social Media", color: "from-[#00F5A0] to-[#784BA0]" },
+    { id: 38, title: "Clothing Brand Posts",      desc: "On-brand social media content for a fashion label",                    category: "Social Media", color: "from-[#1A1A2E] to-[#FF3CAC]" },
+    // Posters — 6 cards
+    { id: 23, title: "Music Festival Poster",     desc: "Bold typographic poster for a live music event",                        category: "Posters",      color: "from-[#1A1A2E] via-[#FF3CAC] to-[#784BA0]" },
+    { id: 24, title: "Corporate Event Flyer",     desc: "Clean professional layout for a corporate gathering",                   category: "Posters",      color: "from-[#0A0A0F] to-[#2B86C5]" },
+    { id: 39, title: "University Event Poster",   desc: "Vibrant poster design for campus literary events",                      category: "Posters",      color: "from-[#784BA0] to-[#2B86C5]" },
+    { id: 40, title: "Sale Promotion Flyer",      desc: "High-impact discount flyer for retail promotions",                      category: "Posters",      color: "from-[#FF6B35] to-[#FF3CAC]" },
+    { id: 41, title: "Product Launch Poster",     desc: "Dramatic full-bleed product reveal poster",                             category: "Posters",      color: "from-[#00F5A0] to-[#2B86C5]" },
+    { id: 42, title: "Workshop Announcement",     desc: "Clean informational flyer for a design workshop",                       category: "Posters",      color: "from-[#FF3CAC] to-[#784BA0]" },
+    // Business Cards — 4 cards
+    { id: 25, title: "Luxury Business Card",      desc: "Minimal dark card design for a premium brand",                          category: "Business Cards", color: "from-[#111118] to-[#784BA0]" },
+    { id: 26, title: "Creative Studio Card",      desc: "Bold colorful identity card for a design studio",                       category: "Business Cards", color: "from-[#FF6B35] to-[#FF3CAC]" },
+    { id: 43, title: "Freelancer Card",           desc: "Clean typographic card with gradient accent",                           category: "Business Cards", color: "from-[#2B86C5] to-[#00F5A0]" },
+    { id: 44, title: "Corporate Double-Sided",    desc: "Professional two-sided card with brand identity system",                category: "Business Cards", color: "from-[#FF3CAC] to-[#2B86C5]" },
+    // UI/UX — 4 cards
+    { id: 27, title: "E-Commerce App UI",         desc: "Mobile shopping interface with modern UX patterns",                     category: "UI/UX",        color: "from-[#0A0A0F] via-[#2B86C5] to-[#00F5A0]" },
+    { id: 28, title: "Dashboard Design",          desc: "SaaS analytics dashboard with data visualisation",                      category: "UI/UX",        color: "from-[#784BA0] to-[#FF3CAC]" },
+    { id: 45, title: "Portfolio App Screen",      desc: "Portfolio showcase mobile app UI concept",                              category: "UI/UX",        color: "from-[#FF3CAC] to-[#784BA0]" },
+    { id: 46, title: "Restaurant Ordering App",   desc: "Food delivery app interface with intuitive flow",                       category: "UI/UX",        color: "from-[#00F5A0] to-[#784BA0]" },
+    // Adobe Stock — 6 cards
+    { id: 29, title: "Abstract Vector Pack",      desc: "Bold geometric abstract compositions for commercial licensing",          category: "Adobe Stock",  color: "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]" },
+    { id: 32, title: "Digital Art Collection",    desc: "Vivid abstract digital illustrations uploaded to Adobe Stock",           category: "Adobe Stock",  color: "from-[#2B86C5] via-[#784BA0] to-[#FF3CAC]" },
+    { id: 33, title: "Gradient Texture Set",      desc: "High-resolution gradient textures and backgrounds",                     category: "Adobe Stock",  color: "from-[#00F5A0] via-[#2B86C5] to-[#784BA0]" },
+    { id: 47, title: "Icon Pack — Minimal",       desc: "Clean minimal icon set for UI and presentation use",                    category: "Adobe Stock",  color: "from-[#FF6B35] to-[#FF3CAC]" },
+    { id: 48, title: "Social Media Templates",    desc: "Editable social graphic templates for commercial download",             category: "Adobe Stock",  color: "from-[#784BA0] to-[#2B86C5]" },
+    { id: 49, title: "Brand Pattern Set",         desc: "Seamless repeating patterns for packaging and print",                   category: "Adobe Stock",  color: "from-[#FF3CAC] to-[#00F5A0]" },
+    // AI-Generated — 4 cards
+    { id: 30, title: "AI Brand Concept",          desc: "AI-assisted brand identity exploration",                                category: "AI-Generated", color: "from-[#00F5A0] to-[#784BA0]" },
+    { id: 31, title: "Surreal Digital Art",       desc: "AI-prompted visual artwork and concept exploration",                    category: "AI-Generated", color: "from-[#FF3CAC] to-[#2B86C5]" },
+    { id: 50, title: "AI Portrait Series",        desc: "Stylised AI-generated portrait artworks",                               category: "AI-Generated", color: "from-[#2B86C5] to-[#FF3CAC]" },
+    { id: 51, title: "Futuristic City Concepts",  desc: "AI-generated architectural and urban concept visuals",                  category: "AI-Generated", color: "from-[#784BA0] to-[#FF6B35]" },
   ];
 
   const filteredPortfolio = activeFilter === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeFilter);
@@ -191,14 +209,12 @@ export default function Portfolio() {
                       </>
                     ) : (
                       <>
-                        <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-80 group-hover:scale-105 transition-transform duration-700`} />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                          <span className="text-8xl font-serif font-bold text-white select-none">{item.category.charAt(0)}</span>
+                        <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-[3rem] font-serif font-bold text-white opacity-20 select-none pointer-events-none">{item.category.charAt(0)}</span>
                         </div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-1/2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-4 shadow-lg flex flex-col gap-2">
-                          <div className="w-1/3 h-3 bg-white/20 rounded-full" />
-                          <div className="w-full h-2 bg-white/10 rounded-full mt-2" />
-                          <div className="w-4/5 h-2 bg-white/10 rounded-full" />
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                          <span className="font-mono text-[0.65rem] text-white/50 bg-black/30 px-2 py-0.5 rounded whitespace-nowrap">Coming Soon</span>
                         </div>
                       </>
                     )}

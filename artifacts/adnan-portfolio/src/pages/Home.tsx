@@ -5,6 +5,12 @@ import { Menu, X, ArrowRight, Download, Award, Briefcase, FileImage, Layout, Sta
 import adnanPhoto from "@assets/AI_Eraser_image_(9)_(1)_(1)_1776065620675.jpg";
 import whatsappIcon from "@assets/whatsapp_1776320901147.png";
 import emailIcon from "@assets/eamil_1776320901147.png";
+import imgTanka from "@assets/20230809_203547_0000_1776321808415.png";
+import imgKalam from "@assets/20230816_205555_0000_1776321808415.png";
+import imgBotho from "@assets/20230916_200949_0000_1776321808416.png";
+import imgGamer from "@assets/20240115_081331_0000_1776321808416.png";
+import imgUnlimitedTech from "@assets/20240116_115326_0000_1776321808416.png";
+import imgHealthyFood from "@assets/20240117_173212_0000_1776321808417.png";
 
 // --- Components ---
 
@@ -290,12 +296,12 @@ export default function Home() {
   const filters = ["All", "Logos", "Social Media", "Posters", "Business Cards", "UI/UX"];
   
   const portfolioItems = [
-    { id: 1, title: "Tech Startup Identity", category: "Logos", color: "from-[#FF3CAC] to-[#784BA0]" },
-    { id: 2, title: "E-commerce App Redesign", category: "UI/UX", color: "from-[#2B86C5] to-[#00F5A0]" },
-    { id: 3, title: "Summer Festival Campaign", category: "Social Media", color: "from-[#FF6B35] to-[#FF3CAC]" },
-    { id: 4, title: "Corporate Branding", category: "Business Cards", color: "from-[#1A1A2E] to-[#784BA0]" },
-    { id: 5, title: "Cyberpunk Event", category: "Posters", color: "from-[#0A0A0F] to-[#2B86C5]" },
-    { id: 6, title: "Minimalist Crypto Logo", category: "Logos", color: "from-[#00F5A0] to-[#784BA0]" }
+    { id: 1, title: "Tanka Traditional",        category: "Logos", color: "from-[#888] to-[#ccc]",           image: imgTanka },
+    { id: 2, title: "Kalam",                    category: "Logos", color: "from-[#111] to-[#444]",           image: imgKalam },
+    { id: 3, title: "Botho Menswear",           category: "Logos", color: "from-[#0d1117] to-[#1c2a3a]",    image: imgBotho },
+    { id: 4, title: "Gamer E-Sports Team",      category: "Logos", color: "from-[#000] to-[#222]",           image: imgGamer },
+    { id: 5, title: "The Unlimited Technology", category: "Logos", color: "from-[#0a0a0a] to-[#002233]",    image: imgUnlimitedTech },
+    { id: 6, title: "Healthy Food",             category: "Logos", color: "from-[#f9f3e8] to-[#fce4ec]",    image: imgHealthyFood },
   ];
 
   const filteredPortfolio = activeFilter === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeFilter);
@@ -724,13 +730,32 @@ export default function Home() {
                   key={item.id}
                   className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-none bg-[#07060F] border border-white/5"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-80 group-hover:scale-105 transition-transform duration-700`} />
-                  
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 group-hover:opacity-10 transition-opacity">
-                    <span className="text-9xl font-serif font-bold text-white">{item.category.charAt(0)}</span>
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        const fb = e.currentTarget.parentElement?.querySelector(".img-fallback") as HTMLElement | null;
+                        if (fb) fb.style.display = "flex";
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className="img-fallback absolute inset-0 flex-col items-center justify-center"
+                    style={{ display: item.image ? "none" : "flex" }}
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
+                    <span className="relative text-[5rem] font-serif font-bold text-white opacity-20 select-none pointer-events-none">
+                      {item.category.charAt(0)}
+                    </span>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                      <span className="font-mono text-[0.65rem] text-white/50 bg-black/30 px-2 py-0.5 rounded whitespace-nowrap">Coming Soon</span>
+                    </div>
                   </div>
 
-                  <div className="absolute inset-0 bg-black/60 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out flex flex-col justify-end p-6">
+                  <div className="absolute inset-0 bg-black/70 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out flex flex-col justify-end p-6 z-10">
                     <span className="text-[#00F5A0] font-mono text-xs uppercase tracking-widest mb-2">{item.category}</span>
                     <h4 className="text-xl font-serif text-white mb-4">{item.title}</h4>
                     <Link href={`/portfolio?category=${encodeURIComponent(item.category)}`} className="self-start text-sm font-mono text-white flex items-center hover:text-[#FF3CAC] transition-colors cursor-none">
