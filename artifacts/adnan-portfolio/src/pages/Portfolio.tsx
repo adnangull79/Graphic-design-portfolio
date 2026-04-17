@@ -44,7 +44,7 @@ export default function Portfolio() {
     }
   }, []);
 
-  const categories = ["All", "Logos", "Social Media", "Posters", "Business Cards", "UI/UX", "Branding", "AI-Generated"];
+  const categories = ["All", "Logos", "Social Media", "Posters", "Business Cards", "UI/UX", "Adobe Stock", "AI-Generated"];
 
   const portfolioItems: PortfolioItem[] = [
     // Logos — real client work
@@ -80,8 +80,10 @@ export default function Portfolio() {
     // UI/UX
     { id: 27, title: "E-Commerce App UI",         desc: "Mobile shopping interface",                                      category: "UI/UX",        color: "from-[#0A0A0F] via-[#2B86C5] to-[#00F5A0]" },
     { id: 28, title: "Dashboard Design",          desc: "SaaS analytics dashboard",                                       category: "UI/UX",        color: "from-[#784BA0] to-[#FF3CAC]" },
-    // Branding
-    { id: 29, title: "Full Brand Identity",       desc: "Complete brand system",                                          category: "Branding",     color: "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]" },
+    // Adobe Stock
+    { id: 29, title: "Abstract Vector Pack",      desc: "Bold geometric abstract compositions for commercial licensing",  category: "Adobe Stock",  color: "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]" },
+    { id: 32, title: "Digital Art Collection",    desc: "Vivid abstract digital illustrations uploaded to Adobe Stock",   category: "Adobe Stock",  color: "from-[#2B86C5] via-[#784BA0] to-[#FF3CAC]" },
+    { id: 33, title: "Gradient Texture Set",      desc: "High-resolution gradient textures and backgrounds",              category: "Adobe Stock",  color: "from-[#00F5A0] via-[#2B86C5] to-[#784BA0]" },
     // AI-Generated
     { id: 30, title: "AI Brand Concept",          desc: "AI-assisted brand identity",                                     category: "AI-Generated", color: "from-[#00F5A0] to-[#784BA0]" },
     { id: 31, title: "Surreal Digital Art",       desc: "AI-prompted visual artwork",                                     category: "AI-Generated", color: "from-[#FF3CAC] to-[#2B86C5]" },
