@@ -780,68 +780,68 @@ export default function Home() {
             {[
               {
                 num: "01",
-                icon: "🎓",
-                badge: { text: "Current", bg: "rgba(0,245,160,0.15)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
-                role: "Graphic Design Instructor",
-                org: "Ujala Technical Institute",
-                desc: "Teaching modern design tools and creative thinking to the next generation.",
-                hoverBorder: "rgba(255,60,172,0.25)",
-                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                badge: { text: "Jan 2026 – Present", bg: "rgba(0,245,160,0.15)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
+                role: "Social Media & Graphic Designer",
+                org: "JS Clothing  ·  Remote",
+                desc: "Managing social media presence and creating on-brand visual content for a clothing brand.",
+                duration: { label: "Jan 2026 – Present", fill: 12, barColor: "linear-gradient(90deg, #00F5A0, #2B86C5)" },
+                hoverBorder: "rgba(0,245,160,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,245,160,0.08)",
                 delay: 0,
               },
               {
                 num: "02",
-                icon: "💼",
-                badge: { text: "Freelance", bg: "rgba(255,60,172,0.12)", color: "#FF3CAC", border: "rgba(255,60,172,0.3)", shadow: "transparent" },
-                role: "Freelance Graphic Designer",
-                org: "International Clients",
-                desc: "Delivering creative designs to clients across the globe.",
+                badge: { text: "Current", bg: "rgba(0,245,160,0.15)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
+                role: "Graphic Design Instructor",
+                org: "Ujala Technical Institute",
+                desc: "Teaching modern design tools and creative thinking to the next generation.",
+                duration: { label: "2023 – Present", fill: 62, barColor: "linear-gradient(90deg, #FF3CAC, #784BA0)" },
                 hoverBorder: "rgba(255,60,172,0.25)",
                 hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
                 delay: 100,
               },
               {
                 num: "03",
-                icon: "✦",
-                badge: { text: "Experience", bg: "rgba(120,75,160,0.15)", color: "#A78BFA", border: "rgba(120,75,160,0.3)", shadow: "transparent" },
-                role: "Graphic Designer",
-                org: "University Literature Society",
-                desc: "Crafted visual campaigns, posters, and social content for campus events.",
-                hoverBorder: "rgba(255,60,172,0.25)",
-                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                badge: { text: "2023 – 2025", bg: "rgba(255,107,53,0.12)", color: "#FF6B35", border: "rgba(255,107,53,0.3)", shadow: "rgba(255,107,53,0.15)" },
+                role: "Adobe Stock Contributor",
+                org: "Adobe Stock",
+                desc: "Contributed original design assets and creative graphics to Adobe Stock, reaching a global audience.",
+                duration: { label: "2 years", fill: 50, barColor: "linear-gradient(90deg, #FF6B35, #FF3CAC)" },
+                hoverBorder: "rgba(255,107,53,0.3)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,107,53,0.1)",
                 delay: 200,
               },
               {
                 num: "04",
-                icon: "🏢",
-                badge: { text: "Projects", bg: "rgba(43,134,197,0.12)", color: "#2B86C5", border: "rgba(43,134,197,0.3)", shadow: "transparent" },
-                role: "Design Projects",
-                org: "Local Businesses",
-                desc: "Built visual identities and branding for multiple local businesses.",
+                badge: { text: "Freelance", bg: "rgba(255,60,172,0.12)", color: "#FF3CAC", border: "rgba(255,60,172,0.3)", shadow: "transparent" },
+                role: "Freelance Graphic Designer",
+                org: "International Clients",
+                desc: "Delivering creative designs to clients across the globe.",
+                duration: { label: "2021 – Present", fill: 80, barColor: "linear-gradient(90deg, #FF3CAC, #784BA0, #2B86C5)" },
                 hoverBorder: "rgba(255,60,172,0.25)",
                 hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
                 delay: 300,
               },
               {
                 num: "05",
-                icon: "🖼️",
-                badge: { text: "2023 – 2025", bg: "rgba(255,107,53,0.12)", color: "#FF6B35", border: "rgba(255,107,53,0.3)", shadow: "rgba(255,107,53,0.15)" },
-                role: "Adobe Stock Contributor",
-                org: "Adobe Stock",
-                desc: "Contributed original design assets and creative graphics to Adobe Stock, reaching a global audience.",
-                hoverBorder: "rgba(255,107,53,0.3)",
-                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,107,53,0.1)",
+                badge: { text: "2022 – 2023", bg: "rgba(120,75,160,0.15)", color: "#A78BFA", border: "rgba(120,75,160,0.3)", shadow: "transparent" },
+                role: "Graphic Designer",
+                org: "University Literature Society",
+                desc: "Crafted visual campaigns, posters, and social content for campus events.",
+                duration: { label: "1 year", fill: 28, barColor: "linear-gradient(90deg, #784BA0, #2B86C5)" },
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
                 delay: 400,
               },
               {
                 num: "06",
-                icon: "👗",
-                badge: { text: "Jan 2026 – Present", bg: "rgba(0,245,160,0.12)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
-                role: "Social Media & Graphic Designer",
-                org: "JS Clothing  ·  Remote",
-                desc: "Managing social media presence and creating on-brand visual content for a clothing brand.",
-                hoverBorder: "rgba(0,245,160,0.25)",
-                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,245,160,0.08)",
+                badge: { text: "2020 – 2022", bg: "rgba(43,134,197,0.12)", color: "#2B86C5", border: "rgba(43,134,197,0.3)", shadow: "transparent" },
+                role: "Design Projects",
+                org: "Local Businesses",
+                desc: "Built visual identities and branding for multiple local businesses.",
+                duration: { label: "2 years", fill: 50, barColor: "linear-gradient(90deg, #2B86C5, #784BA0)" },
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
                 delay: 500,
               },
             ].map((card) => (
@@ -851,7 +851,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: card.delay / 1000, ease: "easeOut" }}
-                className="relative overflow-hidden rounded-[20px] p-7 group"
+                className="relative overflow-hidden rounded-[20px] p-7 group flex flex-col"
                 style={{
                   background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -881,11 +881,8 @@ export default function Home() {
                   {card.num}
                 </span>
 
-                {/* Top row */}
-                <div className="relative z-10 flex items-center justify-between mb-4">
-                  <span className="text-2xl" style={{ filter: "drop-shadow(0 0 8px rgba(255,60,172,0.4))" }}>
-                    {card.icon}
-                  </span>
+                {/* Badge row */}
+                <div className="relative z-10 flex items-center mb-4">
                   <span
                     className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full"
                     style={{
@@ -918,11 +915,36 @@ export default function Home() {
 
                 {/* Description */}
                 <p
-                  className="relative z-10 text-[0.85rem] leading-[1.6] line-clamp-2"
+                  className="relative z-10 text-[0.85rem] leading-[1.6] line-clamp-2 flex-1"
                   style={{ color: "rgba(255,255,255,0.5)" }}
                 >
                   {card.desc}
                 </p>
+
+                {/* Duration bar */}
+                <div className="relative z-10 mt-5">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      Duration
+                    </span>
+                    <span className="font-mono text-[10px] tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      {card.duration.label}
+                    </span>
+                  </div>
+                  <div
+                    className="w-full rounded-full overflow-hidden"
+                    style={{ height: "3px", background: "rgba(255,255,255,0.07)" }}
+                  >
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${card.duration.fill}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: card.delay / 1000 + 0.3, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ background: card.duration.barColor }}
+                    />
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
