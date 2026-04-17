@@ -750,66 +750,180 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience Timeline */}
-      <section id="experience" className="py-32 relative">
+      {/* Experience Grid */}
+      <section id="experience" className="py-24 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden flex justify-center items-center w-full h-full z-0">
           <span className="text-[clamp(6rem,15vw,12rem)] font-serif font-bold text-white/[0.03]">JOURNEY</span>
         </div>
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-20">
-            <span className="text-[#784BA0] font-mono text-sm uppercase tracking-widest block mb-4">My Journey</span>
-            <h3 className="text-4xl md:text-5xl font-serif font-bold text-white">Experience that shaped my craft.</h3>
+          {/* Heading */}
+          <div className="mb-10">
+            <span className="font-mono text-[#FF3CAC] tracking-[0.25em] text-xs uppercase block mb-3">━━  EXPERIENCE</span>
+            <h3
+              className="font-serif font-bold mb-3"
+              style={{
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                background: "linear-gradient(135deg, #FFFFFF 0%, #FF3CAC 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              My Journey
+            </h3>
+            <p className="text-white/50 text-[0.95rem] leading-relaxed max-w-[500px]">
+              A path built on creativity, teaching, and real-world impact.
+            </p>
           </div>
-          
-          <div className="max-w-4xl mx-auto relative">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2" />
-            
+
+          {/* 3×2 Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
+                num: "01",
+                icon: "🎓",
+                badge: { text: "Current", bg: "rgba(0,245,160,0.15)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
                 role: "Graphic Design Instructor",
-                company: "Ujala Technical Institute",
-                desc: "Teaching is one of the most rewarding parts of my journey. At Ujala Technical Institute, I guide students through the world of graphic design — from foundational principles to industry-standard tools — helping them build skills they can turn into real careers."
+                org: "Ujala Technical Institute",
+                desc: "Teaching modern design tools and creative thinking to the next generation.",
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                delay: 0,
               },
               {
+                num: "02",
+                icon: "💼",
+                badge: { text: "Freelance", bg: "rgba(255,60,172,0.12)", color: "#FF3CAC", border: "rgba(255,60,172,0.3)", shadow: "transparent" },
                 role: "Freelance Graphic Designer",
-                company: "Freelance",
-                desc: "Working independently with clients from across the globe — from startups needing their first logo to established businesses refreshing their brand. Every project is a new challenge I genuinely enjoy solving."
+                org: "International Clients",
+                desc: "Delivering creative designs to clients across the globe.",
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                delay: 100,
               },
               {
+                num: "03",
+                icon: "✦",
+                badge: { text: "Experience", bg: "rgba(120,75,160,0.15)", color: "#A78BFA", border: "rgba(120,75,160,0.3)", shadow: "transparent" },
                 role: "Graphic Designer",
-                company: "Adobe Stock Contributor",
-                desc: "Designing and uploading high-quality vector graphics and digital assets for commercial licensing on Adobe Stock — building a growing library of work used by creators and businesses worldwide."
+                org: "University Literature Society",
+                desc: "Crafted visual campaigns, posters, and social content for campus events.",
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                delay: 200,
               },
               {
-                role: "Graphic Designer",
-                company: "University Literature Society",
-                desc: "Creative work for a literary community is something close to my heart. I handled all visual communication — posters, event banners, social media — helping the society build a strong, recognizable identity on campus."
+                num: "04",
+                icon: "🏢",
+                badge: { text: "Projects", bg: "rgba(43,134,197,0.12)", color: "#2B86C5", border: "rgba(43,134,197,0.3)", shadow: "transparent" },
+                role: "Design Projects",
+                org: "Local Businesses",
+                desc: "Built visual identities and branding for multiple local businesses.",
+                hoverBorder: "rgba(255,60,172,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,60,172,0.08)",
+                delay: 300,
               },
               {
-                role: "Local Business Projects",
-                company: "Various Clients",
-                desc: "Working closely with local entrepreneurs taught me the value of practical design — visuals that don't just look good, but actually help a business grow and connect with its audience."
-              }
-            ].map((exp, index) => (
-              <div key={index} className={`relative flex flex-col md:flex-row items-start mb-16 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                {/* Dot */}
-                <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-[#784BA0] shadow-[0_0_10px_rgba(120,75,160,0.8)] -translate-x-[7px] md:-translate-x-1/2 mt-1.5 z-10" />
-                
-                {/* Content */}
-                <motion.div 
-                  initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12 text-left md:text-right'}`}
+                num: "05",
+                icon: "🖼️",
+                badge: { text: "2023 – 2025", bg: "rgba(255,107,53,0.12)", color: "#FF6B35", border: "rgba(255,107,53,0.3)", shadow: "rgba(255,107,53,0.15)" },
+                role: "Adobe Stock Contributor",
+                org: "Adobe Stock",
+                desc: "Contributed original design assets and creative graphics to Adobe Stock, reaching a global audience.",
+                hoverBorder: "rgba(255,107,53,0.3)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(255,107,53,0.1)",
+                delay: 400,
+              },
+              {
+                num: "06",
+                icon: "👗",
+                badge: { text: "Jan 2026 – Present", bg: "rgba(0,245,160,0.12)", color: "#00F5A0", border: "rgba(0,245,160,0.3)", shadow: "rgba(0,245,160,0.2)" },
+                role: "Social Media & Graphic Designer",
+                org: "JS Clothing  ·  Remote",
+                desc: "Managing social media presence and creating on-brand visual content for a clothing brand.",
+                hoverBorder: "rgba(0,245,160,0.25)",
+                hoverShadow: "0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,245,160,0.08)",
+                delay: 500,
+              },
+            ].map((card) => (
+              <motion.div
+                key={card.num}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: card.delay / 1000, ease: "easeOut" }}
+                className="relative overflow-hidden rounded-[20px] p-7 group"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(16px)",
+                  transition: "all 0.3s ease",
+                }}
+                whileHover={{
+                  y: -6,
+                  borderColor: card.hoverBorder,
+                  boxShadow: card.hoverShadow,
+                }}
+              >
+                {/* Left border accent */}
+                <div
+                  className="absolute left-0 top-[20%] w-[3px] rounded-r-sm"
+                  style={{
+                    height: "60%",
+                    background: "linear-gradient(180deg, #FF3CAC, #784BA0, transparent)",
+                  }}
+                />
+
+                {/* Faded background number */}
+                <span
+                  className="absolute bottom-[-10px] right-4 font-serif font-black pointer-events-none select-none z-0"
+                  style={{ fontSize: "7rem", color: "rgba(255,255,255,0.04)", lineHeight: 1 }}
                 >
-                  <div className="glass p-6 rounded-xl border-l-[#784BA0]/50 border-l-2 hover:border-l-[#FF3CAC] transition-colors">
-                    <h4 className="text-xl font-serif text-white mb-1">{exp.role}</h4>
-                    <p className="text-sm font-mono text-[#784BA0] mb-4 uppercase tracking-wider">{exp.company}</p>
-                    <p className="text-muted-foreground">{exp.desc}</p>
-                  </div>
-                </motion.div>
-              </div>
+                  {card.num}
+                </span>
+
+                {/* Top row */}
+                <div className="relative z-10 flex items-center justify-between mb-4">
+                  <span className="text-2xl" style={{ filter: "drop-shadow(0 0 8px rgba(255,60,172,0.4))" }}>
+                    {card.icon}
+                  </span>
+                  <span
+                    className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full"
+                    style={{
+                      background: card.badge.bg,
+                      color: card.badge.color,
+                      border: `1px solid ${card.badge.border}`,
+                      boxShadow: card.badge.shadow !== "transparent" ? `0 0 10px ${card.badge.shadow}` : "none",
+                    }}
+                  >
+                    {card.badge.text}
+                  </span>
+                </div>
+
+                {/* Role & Org */}
+                <div className="relative z-10 mb-3">
+                  <h4 className="text-white font-bold mb-1" style={{ fontFamily: "DM Sans, sans-serif", fontSize: "1.1rem" }}>
+                    {card.role}
+                  </h4>
+                  <p
+                    className="font-mono tracking-[0.1em] text-[0.85rem]"
+                    style={{
+                      background: "linear-gradient(135deg, #FF3CAC, #784BA0)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {card.org}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p
+                  className="relative z-10 text-[0.85rem] leading-[1.6] line-clamp-2"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
+                >
+                  {card.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>

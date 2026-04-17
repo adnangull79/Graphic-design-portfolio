@@ -1,0 +1,68 @@
+═══════════════════════════════════════════════════════════════════
+ADD-ON PROMPT — JS Clothing Experience Card (Experience Section)
+═══════════════════════════════════════════════════════════════════
+
+In the existing Experience section, add a 6th experience card for
+JS Clothing. Do NOT change any other existing cards.
+
+───────────────────────────────────────────────────────────────────
+GRID LAYOUT CHANGE
+───────────────────────────────────────────────────────────────────
+
+Update the grid to fit 6 cards:
+  - Desktop: 3 columns × 2 rows (clean, even, balanced)
+  - Tablet: 2 columns × 3 rows
+  - Mobile: 1 column × 6 rows
+
+───────────────────────────────────────────────────────────────────
+THE NEW CARD — JS Clothing
+───────────────────────────────────────────────────────────────────
+
+Position: 6th card (bottom row, last position)
+
+Background number watermark: "06" (same style as all other cards —
+  Playfair Display, huge, faded, bottom-right corner of card)
+
+Left border accent: same gradient as all cards (pink → purple → transparent)
+
+Icon: 👗 or a clothing/hanger SVG icon styled with accent color glow
+
+Badge:
+  Text: "Jan 2026 – Present"
+  background: rgba(0, 245, 160, 0.12)
+  color: #00F5A0
+  border: 1px solid rgba(0, 245, 160, 0.3)
+  box-shadow: 0 0 10px rgba(0, 245, 160, 0.2)
+  Font: Space Mono
+  (Green glow — same as the "Current" badge on Card 1, because
+   this is also an ongoing/current role — keeps it visually consistent)
+
+Title:
+  "Social Media & Graphic Designer"
+  Bold, white, 1.1rem, DM Sans
+
+Organization:
+  "JS Clothing  ·  Remote"
+  Gradient text (pink → purple), Space Mono, 0.85rem, letter-spacing: 0.1em
+  (The "· Remote" tag makes it clear it's remote work — adds credibility)
+
+Description (max 2 lines):
+  "Managing social media presence and creating on-brand visual content
+  for a clothing brand — from posts and reels to full campaign graphics."
+
+Hover effect:
+  - translateY(-6px)
+  - border-color: rgba(0, 245, 160, 0.25)
+  - box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,245,160,0.08)
+  - transition: all 0.3s ease
+
+Animation:
+  Fade + slide up on scroll, delay: 500ms (last card, appears after all others)
+
+───────────────────────────────────────────────────────────────────
+NOTE
+───────────────────────────────────────────────────────────────────
+
+Keep all 5 existing experience cards exactly as they are.
+Only ADD this 6th card and update the grid to 3x2 layout.
+Do not change the section heading, subtext, or any other section.
