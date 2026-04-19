@@ -23,6 +23,17 @@ import imgInnovativeElec from "@assets/INNOVATIVE_ELECTRONICS_(4)_1776321808419.
 import imgKitab from "@assets/K_I_T_A_B_(2)_1776321808419.png";
 import imgMessi from "@assets/N_U_K_T_A_(6)_1776321808420.png";
 import imgRza from "@assets/RZA_(3)_1776321808420.png";
+import imgDualStar from "@assets/1_1776612571195.png";
+import imgKitchenGram from "@assets/FOOD.1_1776612571198.png";
+import imgGullAcademy from "@assets/GUUL_ACADEMY_1776612571199.png";
+import imgGreenFuelBowl from "@assets/HEAKTHY_BOWL_1776612571199.png";
+import imgHealthyFoodOrganic from "@assets/HEALTHY_FOOD_1776612571200.png";
+import imgHerbalMed from "@assets/HERBAL_MED_1776612571201.png";
+import imgMrCook from "@assets/kitchen_1776612571202.png";
+import imgFireyKitchen from "@assets/KITCHEN2.0_1776612571203.png";
+import imgAqsaIslamic from "@assets/MASJID_1776612571204.png";
+import imgNatureHold from "@assets/tree_1776612571206.png";
+import imgButterflySalon from "@assets/WOMEN_&_BUTERFLY_1776612571207.png";
 
 type PortfolioItem = {
   id: number;
@@ -66,7 +77,18 @@ export default function Portfolio() {
     { id: 16, title: "Innovative Electronics",    desc: "Neon-green electronics brand with gear & circuit illustration",  category: "Logos", color: "from-[#021a18] to-[#0a2a20]",      image: imgInnovativeElec },
     { id: 17, title: "KiTAB",                     desc: "Book brand — Urdu-inspired geometric letterform in monochrome",  category: "Logos", color: "from-[#000] to-[#222]",             image: imgKitab },
     { id: 18, title: "Messi Lettermark",          desc: "Sports ME monogram with a football at the heart of the mark",   category: "Logos", color: "from-[#031a0d] to-[#062a18]",      image: imgMessi },
-    { id: 19, title: "RZA Associates",            desc: "Real estate logo — rooftop arch framing a city skyline",         category: "Logos", color: "from-[#000] to-[#001040]",          image: imgRza },
+    { id: 19, title: "RZA Associates",            desc: "Real estate logo — rooftop arch framing a city skyline",                            category: "Logos", color: "from-[#000] to-[#001040]",          image: imgRza },
+    { id: 52, title: "Dual Star Foundation",      desc: "Community foundation — three human figures in grey & green with orbital ring and twin stars", category: "Logos", color: "from-[#2d6a2d] to-[#9e9e9e]",    image: imgDualStar },
+    { id: 53, title: "KitchenGram",               desc: "Food-tech brand — crossed orange spoon & teal fork in a bold diagonal lock-up on dark", category: "Logos", color: "from-[#1a1a1a] to-[#FF6B35]",      image: imgKitchenGram },
+    { id: 54, title: "Gull Online Quran Academy", desc: "EdTech logo — golden mosque arch cradling an open Quran with Arabic calligraphy and crescent on black", category: "Logos", color: "from-[#0a0a0a] to-[#b8960c]",    image: imgGullAcademy },
+    { id: 55, title: "GreenFuel Bowl",            desc: "Healthy food brand — minimal green bowl with a sprouting leaf on a deep forest-green field", category: "Logos", color: "from-[#0d2b0d] to-[#4caf50]",    image: imgGreenFuelBowl },
+    { id: 56, title: "Healthy Food Organic",      desc: "Natural food logo — green mortar & pestle with leaves framed by a crescent swirl on transparent ground", category: "Logos", color: "from-[#0a1f0a] to-[#5a9e2f]",    image: imgHealthyFoodOrganic },
+    { id: 57, title: "Herbal Medicose",           desc: "Herbal pharma brand — open capsule in bright green with leaves sprouting from the split, clean minimal style", category: "Logos", color: "from-[#f0f8f0] to-[#66bb6a]",    image: imgHerbalMed },
+    { id: 58, title: "Mr Cook",                   desc: "Chef brand — bold black brushstroke chef hat on a warm amber ground with hand-drawn energy", category: "Logos", color: "from-[#e65c00] to-[#f9d423]",      image: imgMrCook },
+    { id: 59, title: "Firey Kitchen",             desc: "BBQ & grill brand — crossed fork & spatula framing a tri-colour flame, vintage badge on lime green", category: "Logos", color: "from-[#7dc43a] to-[#e65c00]",      image: imgFireyKitchen },
+    { id: 60, title: "Aqsa Islamic Institute",    desc: "Islamic education — black mosque silhouette with twin minarets set against a bold golden circle", category: "Logos", color: "from-[#0a0a0a] to-[#d4a017]",    image: imgAqsaIslamic },
+    { id: 61, title: "NatureHold Nursery",        desc: "Nursery brand — two hands forming a tree trunk lifting a canopy of green and purple leaves", category: "Logos", color: "from-[#f0f4f0] to-[#7fb800]",      image: imgNatureHold },
+    { id: 62, title: "The Butterfly Salon",       desc: "Beauty salon — elegant one-line art female face with a bold black butterfly hair ornament on amber", category: "Logos", color: "from-[#e6a817] to-[#1a1a1a]",    image: imgButterflySalon },
     // Social Media — 8 cards
     { id: 20, title: "Eid Campaign Posts",        desc: "Series of festive social graphics for Eid celebrations",                category: "Social Media", color: "from-[#784BA0] to-[#2B86C5]" },
     { id: 21, title: "Product Launch Story",      desc: "Instagram story set for a new product reveal",                          category: "Social Media", color: "from-[#FF3CAC] to-[#FF6B35]" },
