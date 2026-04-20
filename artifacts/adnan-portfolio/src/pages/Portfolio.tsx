@@ -23,6 +23,13 @@ import imgInnovativeElec from "@assets/INNOVATIVE_ELECTRONICS_(4)_1776321808419.
 import imgKitab from "@assets/K_I_T_A_B_(2)_1776321808419.png";
 import imgMessi from "@assets/N_U_K_T_A_(6)_1776321808420.png";
 import imgRza from "@assets/RZA_(3)_1776321808420.png";
+import imgSpringTemplate from "@assets/SPRING_TEMPELTE_1776667267142.png";
+import imgValSale2 from "@assets/V.S.2_1776667267143.png";
+import imgVal2 from "@assets/V2_1776667267143.png";
+import imgVal4 from "@assets/V4_1776667267143.png";
+import imgValentSale from "@assets/VALENT_SALE_1776667267144.png";
+import imgValentinesDay from "@assets/VALENTINES_DAY_1776667267144.png";
+import imgVsStock from "@assets/VS_STOCK_1776667267144.png";
 import imgDualStar from "@assets/1_1776612571195.png";
 import imgKitchenGram from "@assets/FOOD.1_1776612571198.png";
 import imgGullAcademy from "@assets/GUUL_ACADEMY_1776612571199.png";
@@ -90,13 +97,13 @@ export default function Portfolio() {
     { id: 61, title: "NatureHold Nursery",        desc: "Nursery brand — two hands forming a tree trunk lifting a canopy of green and purple leaves", category: "Logos", color: "from-[#f0f4f0] to-[#7fb800]",      image: imgNatureHold },
     { id: 62, title: "The Butterfly Salon",       desc: "Beauty salon — elegant one-line art female face with a bold black butterfly hair ornament on amber", category: "Logos", color: "from-[#e6a817] to-[#1a1a1a]",    image: imgButterflySalon },
     // Social Media — 8 cards
-    { id: 20, title: "Eid Campaign Posts",        desc: "Series of festive social graphics for Eid celebrations",                category: "Social Media", color: "from-[#784BA0] to-[#2B86C5]" },
-    { id: 21, title: "Product Launch Story",      desc: "Instagram story set for a new product reveal",                          category: "Social Media", color: "from-[#FF3CAC] to-[#FF6B35]" },
-    { id: 22, title: "Motivational Quote Series", desc: "Typography-forward posts for daily engagement",                         category: "Social Media", color: "from-[#00F5A0] to-[#2B86C5]" },
-    { id: 34, title: "Ramadan Campaign",          desc: "Themed social graphics for Ramadan brand campaigns",                    category: "Social Media", color: "from-[#FF3CAC] to-[#784BA0]" },
-    { id: 35, title: "Reel Cover Designs",        desc: "Eye-catching cover thumbnails for Instagram reels",                     category: "Social Media", color: "from-[#2B86C5] to-[#00F5A0]" },
-    { id: 36, title: "Brand Highlight Icons",     desc: "Custom icon sets for Instagram story highlight covers",                 category: "Social Media", color: "from-[#FF6B35] to-[#FF3CAC]" },
-    { id: 37, title: "Event Countdown Series",    desc: "Multi-post countdown graphic series for social events",                 category: "Social Media", color: "from-[#00F5A0] to-[#784BA0]" },
+    { id: 20, title: "Happy Spring Template",     desc: "Seasonal social post — blue polka-dot frame with 3D tulips in white, maroon & gold around a clean 'Happy Spring / Season of Happiness' centre panel", category: "Social Media", color: "from-[#1a8fe0] to-[#00c853]", image: imgSpringTemplate },
+    { id: 21, title: "Valentine's Sale Post",     desc: "High-impact sale graphic — bold paper-cut 'SALE' letters hanging on strings over a deep-red sunburst, floating pink & purple hearts, 50% Off badge", category: "Social Media", color: "from-[#8b0000] to-[#c2185b]", image: imgValSale2 },
+    { id: 22, title: "Valentine's Day Cupid",     desc: "Vibrant lime-green Valentine's post — red Cupid silhouette, script headline, two glossy 3D hearts and scattered mini hearts for maximum engagement", category: "Social Media", color: "from-[#c8f400] to-[#e53935]", image: imgVal2 },
+    { id: 34, title: "Valentine's Layered Card", desc: "Deep-red layered heart composition with nested paper-cut depth, cyan bold typography 'Happy Valentines Day 14 Feb', and cherub angels in each corner", category: "Social Media", color: "from-[#b71c1c] to-[#e53935]", image: imgVal4 },
+    { id: 35, title: "Valentine's Day Sale 70%", desc: "Split-layout sale poster — red top with paper-cut hearts and '70% Off / Shop Now' panel, clean white bottom with bold orange 'Special Discount' CTA", category: "Social Media", color: "from-[#e53935] to-[#ffffff]", image: imgValentSale },
+    { id: 36, title: "Valentine's Minimal Post", desc: "Clean white minimal design — large outline heart in pink, elegant 'Happy Valentine's Day 14 February' type, and paper-cut heart bouquets on delicate stems", category: "Social Media", color: "from-[#fce4ec] to-[#f48fb1]", image: imgValentinesDay },
+    { id: 37, title: "Valentine's Sale Magenta", desc: "Rich magenta-purple sale graphic — layered heart backdrop, suspended 'SALE' letterforms, floating hearts at multiple scales, 50% Off heart tag", category: "Social Media", color: "from-[#880e4f] to-[#e91e8c]", image: imgVsStock },
     { id: 38, title: "Clothing Brand Posts",      desc: "On-brand social media content for a fashion label",                    category: "Social Media", color: "from-[#1A1A2E] to-[#FF3CAC]" },
     // Posters — 6 cards
     { id: 23, title: "Music Festival Poster",     desc: "Bold typographic poster for a live music event",                        category: "Posters",      color: "from-[#1A1A2E] via-[#FF3CAC] to-[#784BA0]" },
