@@ -31,9 +31,9 @@ import imgHealthyFoodOrganic from "@assets/HEALTHY_FOOD_1776612571200.png";
 import imgHerbalMed from "@assets/HERBAL_MED_1776612571201.png";
 import imgMrCook from "@assets/kitchen_1776612571202.png";
 import imgFireyKitchen from "@assets/KITCHEN2.0_1776612571203.png";
-import imgAqsaIslamic from "@assets/MASJID_1776612571204.png";
-import imgNatureHold from "@assets/tree_1776612571206.png";
-import imgButterflySalon from "@assets/WOMEN_&_BUTERFLY_1776612571207.png";
+import imgAqsaIslamic from "@assets/MASJID_1776660383014.png";
+import imgNatureHold from "@assets/tree_1776660383015.png";
+import imgButterflySalon from "@assets/WOMEN_&_BUTERFLY_1776660383016.png";
 
 type PortfolioItem = {
   id: number;
