@@ -23,6 +23,13 @@ import imgInnovativeElec from "@assets/INNOVATIVE_ELECTRONICS_(4)_1776321808419.
 import imgKitab from "@assets/K_I_T_A_B_(2)_1776321808419.png";
 import imgMessi from "@assets/N_U_K_T_A_(6)_1776321808420.png";
 import imgRza from "@assets/RZA_(3)_1776321808420.png";
+import imgGullAcademyPoster from "@assets/GULL_ACDMY_POSTER_FINAL_1776745535633.png";
+import imgLostCause from "@assets/POSTER_1776745535634.png";
+import imgSpringTemp from "@assets/SPRING_TEMP_1776745535635.png";
+import imgChristmasOrnaments from "@assets/Untitled-2_1776745535635.png";
+import imgChristmasSanta from "@assets/vecteezy_christmas-card-with-santa-claus-merry-christmas-and-h_1776745535636.png";
+import imgChristmasParty from "@assets/vecteezy_christmas-holiday-party-background-happy-new-year-and_1776745535636.png";
+import imgChristmasTypo from "@assets/vecteezy_merry-christmas-and-new-year-typography-on-shiny-xmas_1776745535637.png";
 import imgSpringTemplate from "@assets/SPRING_TEMPELTE_1776667267142.png";
 import imgValSale2 from "@assets/V.S.2_1776667267143.png";
 import imgVal2 from "@assets/V2_1776667267143.png";
@@ -105,13 +112,14 @@ export default function Portfolio() {
     { id: 36, title: "Valentine's Minimal Post", desc: "Clean white minimal design — large outline heart in pink, elegant 'Happy Valentine's Day 14 February' type, and paper-cut heart bouquets on delicate stems", category: "Social Media", color: "from-[#fce4ec] to-[#f48fb1]", image: imgValentinesDay },
     { id: 37, title: "Valentine's Sale Magenta", desc: "Rich magenta-purple sale graphic — layered heart backdrop, suspended 'SALE' letterforms, floating hearts at multiple scales, 50% Off heart tag", category: "Social Media", color: "from-[#880e4f] to-[#e91e8c]", image: imgVsStock },
     { id: 38, title: "Clothing Brand Posts",      desc: "On-brand social media content for a fashion label",                    category: "Social Media", color: "from-[#1A1A2E] to-[#FF3CAC]" },
-    // Posters — 6 cards
-    { id: 23, title: "Music Festival Poster",     desc: "Bold typographic poster for a live music event",                        category: "Posters",      color: "from-[#1A1A2E] via-[#FF3CAC] to-[#784BA0]" },
-    { id: 24, title: "Corporate Event Flyer",     desc: "Clean professional layout for a corporate gathering",                   category: "Posters",      color: "from-[#0A0A0F] to-[#2B86C5]" },
-    { id: 39, title: "University Event Poster",   desc: "Vibrant poster design for campus literary events",                      category: "Posters",      color: "from-[#784BA0] to-[#2B86C5]" },
-    { id: 40, title: "Sale Promotion Flyer",      desc: "High-impact discount flyer for retail promotions",                      category: "Posters",      color: "from-[#FF6B35] to-[#FF3CAC]" },
-    { id: 41, title: "Product Launch Poster",     desc: "Dramatic full-bleed product reveal poster",                             category: "Posters",      color: "from-[#00F5A0] to-[#2B86C5]" },
-    { id: 42, title: "Workshop Announcement",     desc: "Clean informational flyer for a design workshop",                       category: "Posters",      color: "from-[#FF3CAC] to-[#784BA0]" },
+    // Posters — 7 cards
+    { id: 23, title: "Gull Online Quran Academy", desc: "Institutional promo poster — dark teal with Arabic calligraphy header, gold Ramadan lanterns, five course arrows (Nooranai Qaida, Tajweed, Translation, Namaz, Duas), hexagonal student photo and 3 Days Free Trial badge", category: "Posters", color: "from-[#004d40] to-[#00695c]", image: imgGullAcademyPoster },
+    { id: 24, title: "Lost Cause Unicorn",        desc: "Bold black-and-white illustration poster — chunky hand-lettered 'I'm For The Lost Cause' type alongside a smirking pirate unicorn in a tricorn hat, sinking ship scene below", category: "Posters", color: "from-[#1a1a1a] to-[#555555]", image: imgLostCause },
+    { id: 39, title: "Spring Season Template",    desc: "Seasonal horizontal poster — deep navy background, symmetrical botanical cherry-blossom branches in white and green framing a bright lime-green panel with bold 'Spring Season' text", category: "Posters", color: "from-[#1b3a4b] to-[#4caf50]", image: imgSpringTemp },
+    { id: 40, title: "Christmas Ornaments Poster", desc: "Festive holiday poster — vibrant cyan-blue gradient backdrop with 14 yellow outline Christmas icons hanging on strings (star, Santa, bauble, angel, bell, deer, candy cane, stocking, gift, tree, snowman) and elegant dark script typography below", category: "Posters", color: "from-[#0097a7] to-[#00bcd4]", image: imgChristmasOrnaments },
+    { id: 41, title: "Santa Claus Christmas Card", desc: "Split-panel greeting poster — silver-white left side with blue elegant 'We Wish You A Merry Christmas and Happy New Year' script message, dark red right side featuring a smiling 3D cartoon Santa peeking around the edge with snowflake accents", category: "Posters", color: "from-[#c0c0c0] to-[#b71c1c]", image: imgChristmasSanta },
+    { id: 42, title: "Christmas Holiday Party",   desc: "Luxury Christmas party poster — deep forest green with golden 'Merry Christmas' calligraphy script, surrounded by realistic 3D elements: gold reindeer, jingle bells, candy canes, pine branches, red baubles and ribbon-wrapped gift boxes", category: "Posters", color: "from-[#1b5e20] to-[#d4a017]", image: imgChristmasParty },
+    { id: 63, title: "Christmas Typography Night", desc: "Wintery outdoor scene — midnight-blue sky with scattered snowflakes and stars, bold yellow and blue 'Merry Christmas' hand-lettered type centre-stage, snow-covered pine trees and rolling white drifts across the foreground", category: "Posters", color: "from-[#1a237e] to-[#0d47a1]", image: imgChristmasTypo },
     // Business Cards — 4 cards
     { id: 25, title: "Luxury Business Card",      desc: "Minimal dark card design for a premium brand",                          category: "Business Cards", color: "from-[#111118] to-[#784BA0]" },
     { id: 26, title: "Creative Studio Card",      desc: "Bold colorful identity card for a design studio",                       category: "Business Cards", color: "from-[#FF6B35] to-[#FF3CAC]" },
