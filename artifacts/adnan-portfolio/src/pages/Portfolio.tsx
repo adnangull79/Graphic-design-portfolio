@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { X } from "lucide-react";
 import { Cursor, Navbar, Footer } from "./Home";
 
 import imgTanka from "@assets/20230809_203547_0000_1776321808415.png";
@@ -23,31 +23,13 @@ import imgInnovativeElec from "@assets/INNOVATIVE_ELECTRONICS_(4)_1776321808419.
 import imgKitab from "@assets/K_I_T_A_B_(2)_1776321808419.png";
 import imgMessi from "@assets/N_U_K_T_A_(6)_1776321808420.png";
 import imgRza from "@assets/RZA_(3)_1776321808420.png";
-import imgGullAcademyPoster from "@assets/GULL_ACDMY_POSTER_FINAL_1776745535633.png";
-import imgLostCause from "@assets/POSTER_1776745535634.png";
-import imgSpringTemp from "@assets/SPRING_TEMP_1776745535635.png";
-import imgChristmasOrnaments from "@assets/Untitled-2_1776745535635.png";
-import imgChristmasSanta from "@assets/vecteezy_christmas-card-with-santa-claus-merry-christmas-and-h_1776745535636.png";
-import imgChristmasParty from "@assets/vecteezy_christmas-holiday-party-background-happy-new-year-and_1776745535636.png";
-import imgChristmasTypo from "@assets/vecteezy_merry-christmas-and-new-year-typography-on-shiny-xmas_1776745535637.png";
-import imgSpringTemplate from "@assets/SPRING_TEMPELTE_1776667267142.png";
-import imgValSale2 from "@assets/V.S.2_1776667267143.png";
-import imgVal2 from "@assets/V2_1776667267143.png";
-import imgVal4 from "@assets/V4_1776667267143.png";
-import imgValentSale from "@assets/VALENT_SALE_1776667267144.png";
-import imgValentinesDay from "@assets/VALENTINES_DAY_1776667267144.png";
-import imgVsStock from "@assets/VS_STOCK_1776667267144.png";
-import imgDualStar from "@assets/1_1776612571195.png";
-import imgKitchenGram from "@assets/FOOD.1_1776612571198.png";
-import imgGullAcademy from "@assets/GUUL_ACADEMY_1776612571199.png";
-import imgGreenFuelBowl from "@assets/HEAKTHY_BOWL_1776612571199.png";
-import imgHealthyFoodOrganic from "@assets/HEALTHY_FOOD_1776612571200.png";
-import imgHerbalMed from "@assets/HERBAL_MED_1776612571201.png";
-import imgMrCook from "@assets/kitchen_1776612571202.png";
-import imgFireyKitchen from "@assets/KITCHEN2.0_1776612571203.png";
-import imgAqsaIslamic from "@assets/MASJID_1776660383014.png";
-import imgNatureHold from "@assets/tree_1776660383015.png";
-import imgButterflySalon from "@assets/WOMEN_&_BUTERFLY_1776660383016.png";
+import imgPosterGullAcademy from "@assets/posters/GULL ACDMY POSTER FINAL.png";
+import imgPosterMain from "@assets/posters/POSTER.png";
+import imgPosterSpringTemp from "@assets/posters/SPRING TEMP.png";
+import imgPosterUntitled2 from "@assets/posters/Untitled-2.png";
+import imgPosterChristmasCard from "@assets/posters/vecteezy_christmas-card-with-santa-claus-merry-christmas-and-happy-new-year_ [Converted].png";
+import imgPosterHolidayParty from "@assets/posters/vecteezy_christmas-holiday-party-background-happy-new-year-and-merry_3755142 [Converted].png";
+import imgPosterMerryTypography from "@assets/posters/vecteezy_merry-christmas-and-new-year-typography-on-shiny-xmas_3572416 [Converted] [Recovered].png";
 
 type PortfolioItem = {
   id: number;
@@ -58,8 +40,527 @@ type PortfolioItem = {
   image?: string;
 };
 
+type PortfolioCardProps = {
+  item: PortfolioItem;
+  onSelect: (item: PortfolioItem) => void;
+  isWideLayout?: boolean;
+};
+
+const PortfolioCard = React.memo(function PortfolioCard({ item, onSelect, isWideLayout = false }: PortfolioCardProps) {
+  return (
+    <div
+      onClick={() => onSelect(item)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect(item);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      className="group relative rounded-2xl overflow-hidden bg-[#111118] border border-white/5 shadow-xl hover:shadow-[0_0_22px_rgba(255,60,172,0.12)] hover:border-[#FF3CAC]/30 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
+      style={{ contain: "layout paint style", contentVisibility: "auto", containIntrinsicSize: "480px" }}
+    >
+      <div className="absolute -right-8 top-1/3 h-24 w-20 bg-[#FF3CAC]/35 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
+
+      <div className={`${isWideLayout ? "h-[320px] md:h-[420px]" : "h-[240px]"} relative overflow-hidden`}>
+        {item.image ? (
+          <>
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111118] via-transparent to-transparent opacity-60" />
+          </>
+        ) : (
+          <>
+            <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[3rem] font-serif font-bold text-white opacity-20 select-none pointer-events-none">{item.category.charAt(0)}</span>
+            </div>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+              <span className="font-mono text-[0.65rem] text-white/50 bg-black/30 px-2 py-0.5 rounded whitespace-nowrap">Coming Soon</span>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="p-6 relative bg-[#111118] z-10">
+        <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest text-[#00F5A0] mb-4">
+          {item.category}
+        </span>
+        <h4 className="text-xl font-serif font-bold text-white mb-2">{item.title}</h4>
+        <p className="text-white/50 text-sm line-clamp-2">{item.desc}</p>
+      </div>
+    </div>
+  );
+});
+
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [visibleCount, setVisibleCount] = useState(9);
+
+  const adobeStockImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/adobe stock/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const socialMediaImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/Social media Post/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const aiGeneratedImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/ai generations/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const logoImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/logo/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const uiImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/UI/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const fileTokenFixes: Record<string, string> = {
+    fruites: "Fruits",
+    hourse: "Horse",
+    loin: "Lion",
+    facce: "Face",
+    jeely: "Jelly",
+    illuration: "Illustration",
+    girllll: "Girl",
+    flowe: "Flower",
+    flr: "Floral",
+    pic: "Visual",
+    kek: "Tech",
+    vrc: "Vector",
+    footbol: "Football",
+    hirran: "Deer",
+    santa: "Santa",
+  };
+
+  const toTitleCase = (value: string) =>
+    value
+      .split(" ")
+      .filter(Boolean)
+      .map((word) => (word.length <= 2 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()))
+      .join(" ");
+
+  const buildAdobeStockTitle = (fileName: string, index: number) => {
+    const stem = fileName
+      .replace(/\.[^.]+$/, "")
+      .replace(/[\[\]()~]/g, " ")
+      .replace(/[_.-]+/g, " ")
+      .replace(/\b(converted|recovered|final|temp|new)\b/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const normalized = stem
+      .split(" ")
+      .map((token) => {
+        const lower = token.toLowerCase();
+        return fileTokenFixes[lower] ?? token;
+      })
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const tokens = normalized
+      .toLowerCase()
+      .split(" ")
+      .filter((token) => /^[a-z]+$/.test(token));
+
+    const has = (word: string) => tokens.includes(word);
+
+    if (has("christmas") || has("santa")) {
+      if (has("background")) return "Christmas Festive Background";
+      return "Christmas Holiday Illustration";
+    }
+
+    if (has("icon") || has("icons")) return "Minimal Icon Set";
+    if (has("pattern") && (has("fruit") || has("fruits"))) return "Fruits Seamless Pattern";
+    if (has("pattern")) return "Seamless Vector Pattern";
+    if (has("flower") || has("floral") || has("rose")) return "Botanical Floral Illustration";
+    if (has("playing") && has("cards")) return "Playing Cards Illustration";
+
+    if (has("eagle")) return "Eagle Emblem Illustration";
+    if (has("lion")) return "Lion Character Illustration";
+    if (has("cat")) return "Cat Character Illustration";
+    if (has("dog") || has("pet")) return "Dog Character Illustration";
+    if (has("fish") || has("jelly") || has("shark") || has("octopus")) return "Marine Life Illustration";
+    if (has("crocodile")) return "Crocodile Character Illustration";
+    if (has("deer")) return "Deer Character Illustration";
+    if (has("horse")) return "Horse Character Illustration";
+
+    if (has("face") || has("sketch") || has("girl") || has("man")) return "Portrait Sketch Illustration";
+    if (has("apple")) return "Apple Vector Illustration";
+    if (has("fire")) return "Fire Icon Illustration";
+    if (has("house")) return "House Illustration";
+    if (has("monster")) return "Monster Character Illustration";
+    if (has("machine")) return "Mechanical Vector Illustration";
+
+    if (!normalized || /^\d+$/.test(normalized)) {
+      return `Adobe Stock Artwork ${index + 1}`;
+    }
+
+    const cleanedName = normalized
+      .replace(/\b\d+\b/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleanedName) return `Adobe Stock Artwork ${index + 1}`;
+
+    return `${toTitleCase(cleanedName)} Illustration`;
+  };
+
+  const buildAdobeStockDesc = (title: string) => {
+    const lower = title.toLowerCase();
+
+    if (lower.includes("icon")) return `${title} featuring clean vector symbols designed for UI kits, branding systems, and app interfaces`;
+    if (lower.includes("pattern")) return `${title} with repeat-ready composition developed for packaging, textile, and surface design applications`;
+    if (lower.includes("flower") || lower.includes("floral") || lower.includes("rose")) return `${title} showcasing decorative botanical vector styling for editorial and commercial graphics`;
+    if (lower.includes("christmas") || lower.includes("santa")) return `${title} crafted as festive seasonal artwork for greeting cards, social campaigns, and holiday promotions`;
+    if (lower.includes("cat") || lower.includes("dog") || lower.includes("fish") || lower.includes("shark") || lower.includes("octopus") || lower.includes("crocodile") || lower.includes("lion") || lower.includes("horse") || lower.includes("eagle") || lower.includes("deer")) {
+      return `${title} built as a character-led vector illustration with bold silhouette and high visual contrast`;
+    }
+    if (lower.includes("card")) return `${title} arranged as a print-friendly layout concept with strong hierarchy and display-ready composition`;
+    if (lower.includes("face") || lower.includes("sketch") || lower.includes("girl") || lower.includes("man")) return `${title} focused on portrait-style drawing and expressive linework for creative editorial usage`;
+
+    return `${title} prepared as commercial Adobe Stock artwork for multi-platform creative and branding projects`;
+  };
+
+  const adobeStockGradients = [
+    "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]",
+    "from-[#2B86C5] via-[#784BA0] to-[#FF3CAC]",
+    "from-[#00F5A0] via-[#2B86C5] to-[#784BA0]",
+    "from-[#FF6B35] to-[#FF3CAC]",
+    "from-[#784BA0] to-[#2B86C5]",
+    "from-[#FF3CAC] to-[#00F5A0]",
+  ];
+
+  const socialMediaGradients = [
+    "from-[#784BA0] to-[#2B86C5]",
+    "from-[#FF3CAC] to-[#FF6B35]",
+    "from-[#00F5A0] to-[#2B86C5]",
+    "from-[#FF3CAC] to-[#784BA0]",
+    "from-[#2B86C5] to-[#00F5A0]",
+    "from-[#FF6B35] to-[#FF3CAC]",
+    "from-[#00F5A0] to-[#784BA0]",
+    "from-[#1A1A2E] to-[#FF3CAC]",
+  ];
+
+  const aiGeneratedGradients = [
+    "from-[#2B86C5] to-[#784BA0]",
+    "from-[#784BA0] to-[#FF3CAC]",
+    "from-[#00F5A0] to-[#2B86C5]",
+    "from-[#FF3CAC] to-[#2B86C5]",
+    "from-[#FF6B35] to-[#FF3CAC]",
+    "from-[#0A0A0F] to-[#2B86C5]",
+  ];
+
+  const logoGradients = [
+    "from-[#0d1117] to-[#1c2a3a]",
+    "from-[#0a0a0a] to-[#002233]",
+    "from-[#000] to-[#222]",
+    "from-[#0a2040] to-[#1a3a60]",
+    "from-[#021a18] to-[#0a2a20]",
+  ];
+
+  const uiGradients = [
+    "from-[#0A0A0F] via-[#2B86C5] to-[#00F5A0]",
+    "from-[#2B86C5] to-[#00F5A0]",
+    "from-[#1A1A2E] to-[#2B86C5]",
+    "from-[#00F5A0] to-[#784BA0]",
+  ];
+
+  const toCompactStem = (fileName: string) =>
+    fileName.replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+  const existingLogoStems = new Set([
+    "202308092035470000",
+    "202308162055550000",
+    "202309162009490000",
+    "202401150813310000",
+    "202401161153260000",
+    "202401171732120000",
+    "202401181533150000",
+    "202401190651020000",
+    "adnancreation2",
+    "coast11",
+    "coast2",
+    "grace2",
+    "gullart6",
+    "huge2",
+    "icon",
+    "innovativeelectronics4",
+    "kitab2",
+    "nukta6",
+    "rza3",
+  ]);
+
+  const buildLogoTitle = (fileName: string, index: number) => {
+    const lower = fileName.toLowerCase();
+    if (lower.includes("food") || lower.includes("bowl")) return "Food Brand Logo Concept";
+    if (lower.includes("kitchen")) return "Kitchen Brand Identity";
+    if (lower.includes("academy")) return "Academy Identity Logo";
+    if (lower.includes("mountain")) return "Mountain Emblem Logo";
+    if (lower.includes("masjid")) return "Masjid Symbol Mark";
+    if (lower.includes("crown")) return "Crown Royal Logo Concept";
+    if (lower.includes("panther") || lower.includes("face")) return "Character Logo Mark";
+    if (lower.includes("fiver")) return "Freelance Brand Logo";
+
+    const cleaned = fileName
+      .replace(/\.[^.]+$/, "")
+      .replace(/[_.-]+/g, " ")
+      .replace(/[()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleaned || /^\d+$/.test(cleaned)) return `Logo Concept ${index + 1}`;
+    return toTitleCase(cleaned);
+  };
+
+  const buildLogoDesc = (title: string) =>
+    `${title} developed as a brand identity concept focusing on recognisable form, clean typography, and strong visual recall`;
+
+  const buildUITitle = (fileName: string, index: number) => {
+    const lower = fileName.toLowerCase();
+    if (lower === "1.jpeg") return "TalkSync Translate Screen";
+    if (lower === "2.jpeg") return "TalkSync History Screen";
+    if (lower === "3.jpeg") return "TalkSync Saved Screen";
+    if (lower === "4.jpeg") return "TalkSync Settings Screen";
+    if (lower.includes("eraser")) return "TalkSync UI Showcase";
+    return `UI Screen Design ${index + 1}`;
+  };
+
+  const buildUIDesc = (title: string) =>
+    `${title} from a mobile translation app UI flow, designed with consistent dark-theme components and usability-first hierarchy`;
+
+  const buildAIGeneratedTitle = (fileName: string, index: number) => {
+    const lower = fileName.toLowerCase();
+
+    if (lower.startsWith("gemini_generated_image")) return `Gemini AI Concept ${index + 1}`;
+    if (lower.startsWith("chatgpt image")) return `ChatGPT AI Artwork ${index + 1}`;
+    if (lower.startsWith("whatsapp image")) return `AI Concept Snapshot ${index + 1}`;
+    if (lower.includes("logo")) return "AI Minimal Logo Concept";
+    if (lower.includes("eraser")) return `AI Retouched Composition ${index + 1}`;
+
+    const cleaned = fileName
+      .replace(/\.[^.]+$/, "")
+      .replace(/[_.-]+/g, " ")
+      .replace(/[()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleaned || /^\d+$/.test(cleaned)) return `AI Visual Exploration ${index + 1}`;
+    return `${toTitleCase(cleaned)} Concept`;
+  };
+
+  const buildAIGeneratedDesc = (fileName: string, title: string) => {
+    const lower = fileName.toLowerCase();
+
+    if (lower.includes("logo")) return `${title} exploring AI-assisted logo form, typography direction, and minimal brand identity structure`;
+    if (lower.includes("eraser")) return `${title} refined with AI cleanup workflow to enhance composition clarity and visual focus`;
+    if (lower.startsWith("gemini_generated_image")) return `${title} generated from Gemini prompt workflows for style testing, concept variation, and visual ideation`;
+    if (lower.startsWith("chatgpt image")) return `${title} created using ChatGPT image prompting for creative direction and rapid concept development`;
+    if (lower.startsWith("whatsapp image")) return `${title} documenting AI concept iterations shared during project exploration and review stages`;
+
+    return `${title} developed through AI image generation experiments to evaluate visual storytelling, mood, and art direction`;
+  };
+
+  const socialMediaMeta: Record<string, { title: string; desc: string }> = {
+    "20250717_134204.jpg": {
+      title: "Islamic Academy Course Offer",
+      desc: "Dark-themed educational promo post highlighting Quran classes, free trial, and online session details",
+    },
+    "Dark Green and Yellow Digital Marketing Agency Instagram Post.png": {
+      title: "Islamic Academy Green Campaign Post",
+      desc: "Clean green-and-cream course promotion layout featuring service list, trial offer, and contact information",
+    },
+    "post 1.jpg": {
+      title: "Read Your Quran Quote Post",
+      desc: "Monochrome inspirational Islamic quote creative built for engagement-focused social publishing",
+    },
+    "SPRING TEMPELTE.png": {
+      title: "Spring Festival Social Template",
+      desc: "Seasonal tulip-themed social post template with decorative border and editable center content area",
+    },
+    "V.S.2.png": {
+      title: "Valentine Hanging Hearts Sale",
+      desc: "Promotional hearts composition with hanging typography and discount call-to-action for holiday campaigns",
+    },
+    "V2.png": {
+      title: "Cupid Valentine Greeting Post",
+      desc: "Bright valentine greeting design with cupid motif, heart elements, and celebratory date composition",
+    },
+    "V4.png": {
+      title: "Layered Heart Valentine Banner",
+      desc: "Bold layered-heart social graphic with central message area and playful cupid visual accents",
+    },
+    "VALENT SALE.png": {
+      title: "Valentine 70 Percent Sale Post",
+      desc: "Red retail-style social sale creative featuring heart icons and strong promotional hierarchy",
+    },
+    "VALENTINES DAY.png": {
+      title: "Valentine Balloon Hearts Layout",
+      desc: "Minimal valentine social visual with floating heart balloons and soft romantic typography treatment",
+    },
+    "VS STOCK.png": {
+      title: "Valentine Offer Stock Post",
+      desc: "Stock-ready valentine sales post with layered heart framing, hanging letters, and discount badge",
+    },
+  };
+
+  const socialMediaItems: PortfolioItem[] = useMemo(
+    () =>
+      Object.entries(socialMediaImageModules)
+        .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Social Asset ${index + 1}`;
+          const matched = socialMediaMeta[fileName];
+
+          const fallbackTitle = toTitleCase(
+            fileName
+              .replace(/\.[^.]+$/, "")
+              .replace(/[_.-]+/g, " ")
+              .replace(/\s+/g, " ")
+              .trim(),
+          );
+
+          return {
+            id: 2000 + index,
+            title: matched?.title ?? `${fallbackTitle} Post`,
+            desc:
+              matched?.desc ??
+              `${fallbackTitle} social media creative designed for high-visibility campaign engagement and brand promotion`,
+            category: "Social Media",
+            color: socialMediaGradients[index % socialMediaGradients.length],
+            image,
+          };
+        }),
+    [socialMediaImageModules],
+  );
+
+  const adobeStockItems: PortfolioItem[] = useMemo(
+    () =>
+      Object.entries(adobeStockImageModules)
+        .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Asset ${index + 1}`;
+          const title = buildAdobeStockTitle(fileName, index);
+
+          return {
+            id: 2900 + index,
+            title,
+            desc: buildAdobeStockDesc(title),
+            category: "Adobe Stock",
+            color: adobeStockGradients[index % adobeStockGradients.length],
+            image,
+          };
+        }),
+    [adobeStockImageModules],
+  );
+
+  const aiGeneratedItems: PortfolioItem[] = useMemo(
+    () =>
+      Object.entries(aiGeneratedImageModules)
+        .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `AI Asset ${index + 1}`;
+          const title = buildAIGeneratedTitle(fileName, index);
+
+          return {
+            id: 4000 + index,
+            title,
+            desc: buildAIGeneratedDesc(fileName, title),
+            category: "AI-Generated",
+            color: aiGeneratedGradients[index % aiGeneratedGradients.length],
+            image,
+          };
+        }),
+    [aiGeneratedImageModules],
+  );
+
+  const logoItems: PortfolioItem[] = useMemo(
+    () => {
+      const seen = new Set<string>();
+
+      return Object.entries(logoImageModules)
+        .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Logo ${index + 1}`;
+          const compact = toCompactStem(fileName);
+          return { image, fileName, compact, index };
+        })
+        .filter(({ compact }) => {
+          if (existingLogoStems.has(compact) || seen.has(compact)) return false;
+          seen.add(compact);
+          return true;
+        })
+        .map(({ image, fileName, index }, listIndex) => {
+          const title = buildLogoTitle(fileName, index);
+
+          return {
+            id: 1500 + listIndex,
+            title,
+            desc: buildLogoDesc(title),
+            category: "Logos",
+            color: logoGradients[listIndex % logoGradients.length],
+            image,
+          };
+        });
+    },
+    [logoImageModules],
+  );
+
+  const uiItems: PortfolioItem[] = useMemo(
+    () =>
+      Object.entries(uiImageModules)
+        .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `UI ${index + 1}`;
+          const title = buildUITitle(fileName, index);
+
+          return {
+            id: 2600 + index,
+            title,
+            desc: buildUIDesc(title),
+            category: "UI/UX",
+            color: uiGradients[index % uiGradients.length],
+            image,
+          };
+        }),
+    [uiImageModules],
+  );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -69,82 +570,73 @@ export default function Portfolio() {
     }
   }, []);
 
-  const categories = ["All", "Logos", "Social Media", "Posters", "Business Cards", "UI/UX", "Adobe Stock", "AI-Generated"];
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [activeFilter]);
 
-  const portfolioItems: PortfolioItem[] = [
-    // Logos — real client work
-    { id: 1,  title: "Tanka Traditional",         desc: "Fashion brand with red line-art clothing illustration",          category: "Logos", color: "from-[#888] to-[#ccc]",             image: imgTanka },
-    { id: 2,  title: "Kalam",                     desc: "Literary brand — calligraphic pen inside geometric Urdu frame",  category: "Logos", color: "from-[#111] to-[#444]",             image: imgKalam },
-    { id: 3,  title: "Botho Menswear",            desc: "Elegant menswear label with silhouette & vertical wordmark",     category: "Logos", color: "from-[#0d1117] to-[#1c2a3a]",      image: imgBotho },
-    { id: 4,  title: "Gamer E-Sports Team",       desc: "Bold esports logo featuring a skull mascot & strong type",       category: "Logos", color: "from-[#000] to-[#222]",             image: imgGamer },
-    { id: 5,  title: "The Unlimited Technology",  desc: "Tech startup — lightbulb fused with gear mark in electric cyan", category: "Logos", color: "from-[#0a0a0a] to-[#002233]",      image: imgUnlimitedTech },
-    { id: 6,  title: "Healthy Food",              desc: "Organic food brand with leaf & fork inside a circular emblem",   category: "Logos", color: "from-[#f9f3e8] to-[#fce4ec]",      image: imgHealthyFood },
-    { id: 7,  title: "Coffee House",              desc: "Café brand merging a steaming cup with a rooftop silhouette",    category: "Logos", color: "from-[#fff0e0] to-[#fce4ec]",      image: imgCoffeeHouse },
-    { id: 8,  title: "Yoga Studio",               desc: "Minimalist typographic logo on warm caramel background",         category: "Logos", color: "from-[#c8905a] to-[#e0b080]",      image: imgYogaStudio },
-    { id: 9,  title: "BH Monogram",               desc: "Corporate hexagonal lettermark shown in 3 colour variants",      category: "Logos", color: "from-[#0d1b3e] to-[#6b7a99]",      image: imgBH },
-    { id: 10, title: "USC Coast",                 desc: "Music/media circular monogram in neon pink on dark stage",       category: "Logos", color: "from-[#0d0d0d] to-[#2a0028]",      image: imgCoast2 },
-    { id: 11, title: "AKJ Studio",                desc: "Shield-shaped studio monogram in warm terracotta brown",         category: "Logos", color: "from-[#e8e0d8] to-[#c8b8a8]",      image: imgCoast11 },
-    { id: 12, title: "Grace Pharmacy",            desc: "Medical brand with capsule-pill icon inside a blue circle",      category: "Logos", color: "from-[#000] to-[#001133]",          image: imgGrace },
-    { id: 13, title: "Gull Art",                  desc: "Personal creative brand — AG monogram + vibrant fluid mark",     category: "Logos", color: "from-[#0a2040] to-[#1a3a60]",      image: imgGullArt },
-    { id: 14, title: "City Mobile Zone",          desc: "Tech retail brand with CMZ circular lettermark & phone graphic", category: "Logos", color: "from-[#000] to-[#001a2e]",          image: imgCityMobile },
-    { id: 15, title: "Tech Qabeela Institute",    desc: "EdTech logo — mountain chevron meets circuit-board lightbulb",   category: "Logos", color: "from-[#0a0a0a] to-[#1a0a2e]",      image: imgTechQabeela },
-    { id: 16, title: "Innovative Electronics",    desc: "Neon-green electronics brand with gear & circuit illustration",  category: "Logos", color: "from-[#021a18] to-[#0a2a20]",      image: imgInnovativeElec },
-    { id: 17, title: "KiTAB",                     desc: "Book brand — Urdu-inspired geometric letterform in monochrome",  category: "Logos", color: "from-[#000] to-[#222]",             image: imgKitab },
-    { id: 18, title: "Messi Lettermark",          desc: "Sports ME monogram with a football at the heart of the mark",   category: "Logos", color: "from-[#031a0d] to-[#062a18]",      image: imgMessi },
-    { id: 19, title: "RZA Associates",            desc: "Real estate logo — rooftop arch framing a city skyline",                            category: "Logos", color: "from-[#000] to-[#001040]",          image: imgRza },
-    { id: 52, title: "Dual Star Foundation",      desc: "Community foundation — three human figures in grey & green with orbital ring and twin stars", category: "Logos", color: "from-[#2d6a2d] to-[#9e9e9e]",    image: imgDualStar },
-    { id: 53, title: "KitchenGram",               desc: "Food-tech brand — crossed orange spoon & teal fork in a bold diagonal lock-up on dark", category: "Logos", color: "from-[#1a1a1a] to-[#FF6B35]",      image: imgKitchenGram },
-    { id: 54, title: "Gull Online Quran Academy", desc: "EdTech logo — golden mosque arch cradling an open Quran with Arabic calligraphy and crescent on black", category: "Logos", color: "from-[#0a0a0a] to-[#b8960c]",    image: imgGullAcademy },
-    { id: 55, title: "GreenFuel Bowl",            desc: "Healthy food brand — minimal green bowl with a sprouting leaf on a deep forest-green field", category: "Logos", color: "from-[#0d2b0d] to-[#4caf50]",    image: imgGreenFuelBowl },
-    { id: 56, title: "Healthy Food Organic",      desc: "Natural food logo — green mortar & pestle with leaves framed by a crescent swirl on transparent ground", category: "Logos", color: "from-[#0a1f0a] to-[#5a9e2f]",    image: imgHealthyFoodOrganic },
-    { id: 57, title: "Herbal Medicose",           desc: "Herbal pharma brand — open capsule in bright green with leaves sprouting from the split, clean minimal style", category: "Logos", color: "from-[#f0f8f0] to-[#66bb6a]",    image: imgHerbalMed },
-    { id: 58, title: "Mr Cook",                   desc: "Chef brand — bold black brushstroke chef hat on a warm amber ground with hand-drawn energy", category: "Logos", color: "from-[#e65c00] to-[#f9d423]",      image: imgMrCook },
-    { id: 59, title: "Firey Kitchen",             desc: "BBQ & grill brand — crossed fork & spatula framing a tri-colour flame, vintage badge on lime green", category: "Logos", color: "from-[#7dc43a] to-[#e65c00]",      image: imgFireyKitchen },
-    { id: 60, title: "Aqsa Islamic Institute",    desc: "Islamic education — black mosque silhouette with twin minarets set against a bold golden circle", category: "Logos", color: "from-[#0a0a0a] to-[#d4a017]",    image: imgAqsaIslamic },
-    { id: 61, title: "NatureHold Nursery",        desc: "Nursery brand — two hands forming a tree trunk lifting a canopy of green and purple leaves", category: "Logos", color: "from-[#f0f4f0] to-[#7fb800]",      image: imgNatureHold },
-    { id: 62, title: "The Butterfly Salon",       desc: "Beauty salon — elegant one-line art female face with a bold black butterfly hair ornament on amber", category: "Logos", color: "from-[#e6a817] to-[#1a1a1a]",    image: imgButterflySalon },
-    // Social Media — 8 cards
-    { id: 20, title: "Happy Spring Template",     desc: "Seasonal social post — blue polka-dot frame with 3D tulips in white, maroon & gold around a clean 'Happy Spring / Season of Happiness' centre panel", category: "Social Media", color: "from-[#1a8fe0] to-[#00c853]", image: imgSpringTemplate },
-    { id: 21, title: "Valentine's Sale Post",     desc: "High-impact sale graphic — bold paper-cut 'SALE' letters hanging on strings over a deep-red sunburst, floating pink & purple hearts, 50% Off badge", category: "Social Media", color: "from-[#8b0000] to-[#c2185b]", image: imgValSale2 },
-    { id: 22, title: "Valentine's Day Cupid",     desc: "Vibrant lime-green Valentine's post — red Cupid silhouette, script headline, two glossy 3D hearts and scattered mini hearts for maximum engagement", category: "Social Media", color: "from-[#c8f400] to-[#e53935]", image: imgVal2 },
-    { id: 34, title: "Valentine's Layered Card", desc: "Deep-red layered heart composition with nested paper-cut depth, cyan bold typography 'Happy Valentines Day 14 Feb', and cherub angels in each corner", category: "Social Media", color: "from-[#b71c1c] to-[#e53935]", image: imgVal4 },
-    { id: 35, title: "Valentine's Day Sale 70%", desc: "Split-layout sale poster — red top with paper-cut hearts and '70% Off / Shop Now' panel, clean white bottom with bold orange 'Special Discount' CTA", category: "Social Media", color: "from-[#e53935] to-[#ffffff]", image: imgValentSale },
-    { id: 36, title: "Valentine's Minimal Post", desc: "Clean white minimal design — large outline heart in pink, elegant 'Happy Valentine's Day 14 February' type, and paper-cut heart bouquets on delicate stems", category: "Social Media", color: "from-[#fce4ec] to-[#f48fb1]", image: imgValentinesDay },
-    { id: 37, title: "Valentine's Sale Magenta", desc: "Rich magenta-purple sale graphic — layered heart backdrop, suspended 'SALE' letterforms, floating hearts at multiple scales, 50% Off heart tag", category: "Social Media", color: "from-[#880e4f] to-[#e91e8c]", image: imgVsStock },
-    { id: 38, title: "Clothing Brand Posts",      desc: "On-brand social media content for a fashion label",                    category: "Social Media", color: "from-[#1A1A2E] to-[#FF3CAC]" },
-    // Posters — 7 cards
-    { id: 23, title: "Gull Online Quran Academy", desc: "Institutional promo poster — dark teal with Arabic calligraphy header, gold Ramadan lanterns, five course arrows (Nooranai Qaida, Tajweed, Translation, Namaz, Duas), hexagonal student photo and 3 Days Free Trial badge", category: "Posters", color: "from-[#004d40] to-[#00695c]", image: imgGullAcademyPoster },
-    { id: 24, title: "Lost Cause Unicorn",        desc: "Bold black-and-white illustration poster — chunky hand-lettered 'I'm For The Lost Cause' type alongside a smirking pirate unicorn in a tricorn hat, sinking ship scene below", category: "Posters", color: "from-[#1a1a1a] to-[#555555]", image: imgLostCause },
-    { id: 39, title: "Spring Season Template",    desc: "Seasonal horizontal poster — deep navy background, symmetrical botanical cherry-blossom branches in white and green framing a bright lime-green panel with bold 'Spring Season' text", category: "Posters", color: "from-[#1b3a4b] to-[#4caf50]", image: imgSpringTemp },
-    { id: 40, title: "Christmas Ornaments Poster", desc: "Festive holiday poster — vibrant cyan-blue gradient backdrop with 14 yellow outline Christmas icons hanging on strings (star, Santa, bauble, angel, bell, deer, candy cane, stocking, gift, tree, snowman) and elegant dark script typography below", category: "Posters", color: "from-[#0097a7] to-[#00bcd4]", image: imgChristmasOrnaments },
-    { id: 41, title: "Santa Claus Christmas Card", desc: "Split-panel greeting poster — silver-white left side with blue elegant 'We Wish You A Merry Christmas and Happy New Year' script message, dark red right side featuring a smiling 3D cartoon Santa peeking around the edge with snowflake accents", category: "Posters", color: "from-[#c0c0c0] to-[#b71c1c]", image: imgChristmasSanta },
-    { id: 42, title: "Christmas Holiday Party",   desc: "Luxury Christmas party poster — deep forest green with golden 'Merry Christmas' calligraphy script, surrounded by realistic 3D elements: gold reindeer, jingle bells, candy canes, pine branches, red baubles and ribbon-wrapped gift boxes", category: "Posters", color: "from-[#1b5e20] to-[#d4a017]", image: imgChristmasParty },
-    { id: 63, title: "Christmas Typography Night", desc: "Wintery outdoor scene — midnight-blue sky with scattered snowflakes and stars, bold yellow and blue 'Merry Christmas' hand-lettered type centre-stage, snow-covered pine trees and rolling white drifts across the foreground", category: "Posters", color: "from-[#1a237e] to-[#0d47a1]", image: imgChristmasTypo },
-    // Business Cards — 4 cards
-    { id: 25, title: "Luxury Business Card",      desc: "Minimal dark card design for a premium brand",                          category: "Business Cards", color: "from-[#111118] to-[#784BA0]" },
-    { id: 26, title: "Creative Studio Card",      desc: "Bold colorful identity card for a design studio",                       category: "Business Cards", color: "from-[#FF6B35] to-[#FF3CAC]" },
-    { id: 43, title: "Freelancer Card",           desc: "Clean typographic card with gradient accent",                           category: "Business Cards", color: "from-[#2B86C5] to-[#00F5A0]" },
-    { id: 44, title: "Corporate Double-Sided",    desc: "Professional two-sided card with brand identity system",                category: "Business Cards", color: "from-[#FF3CAC] to-[#2B86C5]" },
-    // UI/UX — 4 cards
-    { id: 27, title: "E-Commerce App UI",         desc: "Mobile shopping interface with modern UX patterns",                     category: "UI/UX",        color: "from-[#0A0A0F] via-[#2B86C5] to-[#00F5A0]" },
-    { id: 28, title: "Dashboard Design",          desc: "SaaS analytics dashboard with data visualisation",                      category: "UI/UX",        color: "from-[#784BA0] to-[#FF3CAC]" },
-    { id: 45, title: "Portfolio App Screen",      desc: "Portfolio showcase mobile app UI concept",                              category: "UI/UX",        color: "from-[#FF3CAC] to-[#784BA0]" },
-    { id: 46, title: "Restaurant Ordering App",   desc: "Food delivery app interface with intuitive flow",                       category: "UI/UX",        color: "from-[#00F5A0] to-[#784BA0]" },
-    // Adobe Stock — 6 cards
-    { id: 29, title: "Abstract Vector Pack",      desc: "Bold geometric abstract compositions for commercial licensing",          category: "Adobe Stock",  color: "from-[#FF3CAC] via-[#784BA0] to-[#2B86C5]" },
-    { id: 32, title: "Digital Art Collection",    desc: "Vivid abstract digital illustrations uploaded to Adobe Stock",           category: "Adobe Stock",  color: "from-[#2B86C5] via-[#784BA0] to-[#FF3CAC]" },
-    { id: 33, title: "Gradient Texture Set",      desc: "High-resolution gradient textures and backgrounds",                     category: "Adobe Stock",  color: "from-[#00F5A0] via-[#2B86C5] to-[#784BA0]" },
-    { id: 47, title: "Icon Pack — Minimal",       desc: "Clean minimal icon set for UI and presentation use",                    category: "Adobe Stock",  color: "from-[#FF6B35] to-[#FF3CAC]" },
-    { id: 48, title: "Social Media Templates",    desc: "Editable social graphic templates for commercial download",             category: "Adobe Stock",  color: "from-[#784BA0] to-[#2B86C5]" },
-    { id: 49, title: "Brand Pattern Set",         desc: "Seamless repeating patterns for packaging and print",                   category: "Adobe Stock",  color: "from-[#FF3CAC] to-[#00F5A0]" },
-    // AI-Generated — 4 cards
-    { id: 30, title: "AI Brand Concept",          desc: "AI-assisted brand identity exploration",                                category: "AI-Generated", color: "from-[#00F5A0] to-[#784BA0]" },
-    { id: 31, title: "Surreal Digital Art",       desc: "AI-prompted visual artwork and concept exploration",                    category: "AI-Generated", color: "from-[#FF3CAC] to-[#2B86C5]" },
-    { id: 50, title: "AI Portrait Series",        desc: "Stylised AI-generated portrait artworks",                               category: "AI-Generated", color: "from-[#2B86C5] to-[#FF3CAC]" },
-    { id: 51, title: "Futuristic City Concepts",  desc: "AI-generated architectural and urban concept visuals",                  category: "AI-Generated", color: "from-[#784BA0] to-[#FF6B35]" },
-  ];
+  const categories = ["All", "Logos", "Social Media", "Posters", "UI/UX", "Adobe Stock", "AI-Generated"];
 
-  const filteredPortfolio = activeFilter === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeFilter);
+  const portfolioItems: PortfolioItem[] = useMemo(
+    () => [
+      // Logos — real client work
+      { id: 1,  title: "Tanka Traditional",         desc: "Fashion brand with red line-art clothing illustration",          category: "Logos", color: "from-[#888] to-[#ccc]",             image: imgTanka },
+      { id: 2,  title: "Kalam",                     desc: "Literary brand — calligraphic pen inside geometric Urdu frame",  category: "Logos", color: "from-[#111] to-[#444]",             image: imgKalam },
+      { id: 3,  title: "Botho Menswear",            desc: "Elegant menswear label with silhouette & vertical wordmark",     category: "Logos", color: "from-[#0d1117] to-[#1c2a3a]",      image: imgBotho },
+      { id: 4,  title: "Gamer E-Sports Team",       desc: "Bold esports logo featuring a skull mascot & strong type",       category: "Logos", color: "from-[#000] to-[#222]",             image: imgGamer },
+      { id: 5,  title: "The Unlimited Technology",  desc: "Tech startup — lightbulb fused with gear mark in electric cyan", category: "Logos", color: "from-[#0a0a0a] to-[#002233]",      image: imgUnlimitedTech },
+      { id: 6,  title: "Healthy Food",              desc: "Organic food brand with leaf & fork inside a circular emblem",   category: "Logos", color: "from-[#f9f3e8] to-[#fce4ec]",      image: imgHealthyFood },
+      { id: 7,  title: "Coffee House",              desc: "Café brand merging a steaming cup with a rooftop silhouette",    category: "Logos", color: "from-[#fff0e0] to-[#fce4ec]",      image: imgCoffeeHouse },
+      { id: 8,  title: "Yoga Studio",               desc: "Minimalist typographic logo on warm caramel background",         category: "Logos", color: "from-[#c8905a] to-[#e0b080]",      image: imgYogaStudio },
+      { id: 9,  title: "BH Monogram",               desc: "Corporate hexagonal lettermark shown in 3 colour variants",      category: "Logos", color: "from-[#0d1b3e] to-[#6b7a99]",      image: imgBH },
+      { id: 10, title: "USC Coast",                 desc: "Music/media circular monogram in neon pink on dark stage",       category: "Logos", color: "from-[#0d0d0d] to-[#2a0028]",      image: imgCoast2 },
+      { id: 11, title: "AKJ Studio",                desc: "Shield-shaped studio monogram in warm terracotta brown",         category: "Logos", color: "from-[#e8e0d8] to-[#c8b8a8]",      image: imgCoast11 },
+      { id: 12, title: "Grace Pharmacy",            desc: "Medical brand with capsule-pill icon inside a blue circle",      category: "Logos", color: "from-[#000] to-[#001133]",          image: imgGrace },
+      { id: 13, title: "Gull Art",                  desc: "Personal creative brand — AG monogram + vibrant fluid mark",     category: "Logos", color: "from-[#0a2040] to-[#1a3a60]",      image: imgGullArt },
+      { id: 14, title: "City Mobile Zone",          desc: "Tech retail brand with CMZ circular lettermark & phone graphic", category: "Logos", color: "from-[#000] to-[#001a2e]",          image: imgCityMobile },
+      { id: 15, title: "Tech Qabeela Institute",    desc: "EdTech logo — mountain chevron meets circuit-board lightbulb",   category: "Logos", color: "from-[#0a0a0a] to-[#1a0a2e]",      image: imgTechQabeela },
+      { id: 16, title: "Innovative Electronics",    desc: "Neon-green electronics brand with gear & circuit illustration",  category: "Logos", color: "from-[#021a18] to-[#0a2a20]",      image: imgInnovativeElec },
+      { id: 17, title: "KiTAB",                     desc: "Book brand — Urdu-inspired geometric letterform in monochrome",  category: "Logos", color: "from-[#000] to-[#222]",             image: imgKitab },
+      { id: 18, title: "Messi Lettermark",          desc: "Sports ME monogram with a football at the heart of the mark",   category: "Logos", color: "from-[#031a0d] to-[#062a18]",      image: imgMessi },
+      { id: 19, title: "RZA Associates",            desc: "Real estate logo — rooftop arch framing a city skyline",         category: "Logos", color: "from-[#000] to-[#001040]",          image: imgRza },
+      // Logos — newly added from attached_assets/logo (deduped)
+      ...logoItems,
+      // Social Media — auto-loaded from attached_assets/Social media Post
+      ...socialMediaItems,
+      // Posters — 7 cards
+      { id: 23, title: "I'M FOR THE LOST CAUSE",    desc: "High-contrast monochrome illustration with pirate-unicorn mascot and expressive lettering", category: "Posters",      color: "from-[#1A1A2E] via-[#FF3CAC] to-[#784BA0]", image: imgPosterMain },
+      { id: 24, title: "Gull Online Quran Academy", desc: "Promotional educational poster with Islamic motifs, course list, and contact-focused layout", category: "Posters",      color: "from-[#0A0A0F] to-[#2B86C5]", image: imgPosterGullAcademy },
+      { id: 39, title: "Spring Season Floral Banner", desc: "Decorative spring-themed composition using mirrored blossoms, branches, and botanical framing", category: "Posters",      color: "from-[#784BA0] to-[#2B86C5]", image: imgPosterSpringTemp },
+      { id: 40, title: "Holiday Line Art Background", desc: "Minimal festive vector background with hanging ornaments and clean yellow stroke icons", category: "Posters",      color: "from-[#FF6B35] to-[#FF3CAC]", image: imgPosterUntitled2 },
+      { id: 41, title: "Santa Greeting Card Poster", desc: "Split-layout Christmas greeting design featuring character illustration and seasonal message", category: "Posters",      color: "from-[#00F5A0] to-[#2B86C5]", image: imgPosterChristmasCard },
+      { id: 42, title: "Christmas Holiday Party Background", desc: "Festive New Year party visual with decorative holiday elements for event and social use", category: "Posters",      color: "from-[#FF3CAC] to-[#784BA0]", image: imgPosterHolidayParty },
+      { id: 52, title: "Merry Christmas Winter Scene", desc: "Typography-led holiday artwork with snowy landscape, stars, and pine tree illustrations", category: "Posters",      color: "from-[#2B86C5] to-[#784BA0]", image: imgPosterMerryTypography },
+      // UI/UX — auto-loaded from attached_assets/UI
+      ...uiItems,
+      // Adobe Stock — auto-loaded from attached_assets/adobe stock
+      ...adobeStockItems,
+      // AI-Generated — auto-loaded from attached_assets/ai generations
+      ...aiGeneratedItems,
+    ],
+    [adobeStockItems, socialMediaItems, aiGeneratedItems, logoItems, uiItems],
+  );
+
+  const filteredPortfolio = useMemo(
+    () =>
+      activeFilter === "All"
+        ? portfolioItems
+        : portfolioItems.filter((item) => item.category === activeFilter),
+    [activeFilter, portfolioItems],
+  );
+
+  const visiblePortfolio = useMemo(
+    () => filteredPortfolio.slice(0, visibleCount),
+    [filteredPortfolio, visibleCount],
+  );
+
+  const hasMoreItems = visibleCount < filteredPortfolio.length;
+  const closeProjectModal = useCallback(() => setSelectedItem(null), []);
+  const handleSelectItem = useCallback((item: PortfolioItem) => setSelectedItem(item), []);
+  const isUIFilterActive = activeFilter === "UI/UX";
 
   return (
     <div className="bg-[#07060F] min-h-screen text-foreground selection:bg-[#FF3CAC] selection:text-white flex flex-col">
@@ -221,65 +713,81 @@ export default function Portfolio() {
       {/* Portfolio Grid */}
       <section className="py-20 flex-grow">
         <div className="container mx-auto px-6 md:px-[60px]">
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-            <AnimatePresence>
-              {filteredPortfolio.map(item => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+          <div className={isUIFilterActive ? "grid grid-cols-1 gap-[24px]" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]"}>
+              {visiblePortfolio.map(item => (
+                <PortfolioCard
                   key={item.id}
-                  className="group relative rounded-2xl overflow-hidden cursor-none bg-[#111118] border border-white/5 shadow-xl hover:shadow-[0_0_30px_rgba(255,60,172,0.15)] hover:border-[#FF3CAC]/30 hover:-translate-y-2 transition-all duration-500"
-                >
-                  {/* Image Area */}
-                  <div className="h-[240px] relative overflow-hidden">
-                    {item.image ? (
-                      <>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#111118] via-transparent to-transparent opacity-60" />
-                      </>
-                    ) : (
-                      <>
-                        <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-[3rem] font-serif font-bold text-white opacity-20 select-none pointer-events-none">{item.category.charAt(0)}</span>
-                        </div>
-                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                          <span className="font-mono text-[0.65rem] text-white/50 bg-black/30 px-2 py-0.5 rounded whitespace-nowrap">Coming Soon</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Info Area */}
-                  <div className="p-6 relative bg-[#111118] z-10">
-                    <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest text-[#00F5A0] mb-4">
-                      {item.category}
-                    </span>
-                    <h4 className="text-xl font-serif font-bold text-white mb-2">{item.title}</h4>
-                    <p className="text-white/50 text-sm mb-6 line-clamp-2">{item.desc}</p>
-                    <div className="flex items-center text-sm font-mono uppercase text-white group-hover:text-[#FF3CAC] transition-colors">
-                      View Project <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-20">
-                    <span className="text-5xl font-light text-white mb-4">+</span>
-                    <span className="font-mono text-sm uppercase tracking-widest text-white">View Project</span>
-                  </div>
-                </motion.div>
+                  item={item}
+                  onSelect={handleSelectItem}
+                  isWideLayout={isUIFilterActive}
+                />
               ))}
-            </AnimatePresence>
-          </motion.div>
+          </div>
+
+          {hasMoreItems && (
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => setVisibleCount((current) => current + 9)}
+                className="px-8 py-3 rounded-full border border-white/20 text-white font-mono text-xs uppercase tracking-widest hover:bg-white/5 transition-all"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeProjectModal}
+            className="fixed inset-0 z-[120] bg-black/80 backdrop-blur-md p-4 md:p-8 flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 30, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              onClick={(event) => event.stopPropagation()}
+              className="w-full max-w-4xl max-h-[92vh] overflow-hidden rounded-2xl border border-white/10 bg-[#0E0D17] shadow-[0_0_60px_rgba(255,60,172,0.25)]"
+            >
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={closeProjectModal}
+                  className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full border border-white/20 bg-black/50 text-white hover:bg-black/70 transition-colors flex items-center justify-center"
+                  aria-label="Close preview"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {selectedItem.image ? (
+                  <img
+                    src={selectedItem.image}
+                    alt={selectedItem.title}
+                    className="w-full max-h-[58vh] object-contain bg-black"
+                  />
+                ) : (
+                  <div className={`h-[58vh] w-full bg-gradient-to-br ${selectedItem.color} flex items-center justify-center`}>
+                    <span className="text-7xl font-serif font-bold text-white/30 select-none">{selectedItem.category.charAt(0)}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-6 md:p-8 overflow-y-auto max-h-[34vh]">
+                <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest text-[#00F5A0] mb-4">
+                  {selectedItem.category}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3">{selectedItem.title}</h3>
+                <p className="text-white/65 text-sm md:text-base leading-relaxed">{selectedItem.desc}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Bottom CTA */}
       <section className="py-24 relative overflow-hidden bg-card/30">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, Download, Award, Briefcase, FileImage, Layout, Star, Mail, Linkedin, Instagram, Twitter, Copy, Check } from "lucide-react";
@@ -14,50 +14,7 @@ import imgHealthyFood from "@assets/20240117_173212_0000_1776321808417.png";
 
 // --- Components ---
 
-const Cursor = () => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [isPointer, setIsPointer] = useState(false);
-
-  useEffect(() => {
-    const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      const target = e.target as HTMLElement;
-      setIsPointer(
-        window.getComputedStyle(target).cursor === 'pointer' ||
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button'
-      );
-    };
-
-    window.addEventListener("mousemove", updatePosition);
-    return () => window.removeEventListener("mousemove", updatePosition);
-  }, []);
-
-  return (
-    <>
-      <div 
-        className="cursor-dot" 
-        style={{ 
-          left: `${position.x}px`, 
-          top: `${position.y}px`,
-          backgroundColor: isPointer ? 'hsl(var(--accent))' : 'hsl(var(--primary))',
-          boxShadow: isPointer ? '0 0 10px hsl(var(--accent)), 0 0 20px hsl(var(--accent))' : '0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary))'
-        }} 
-      />
-      <div 
-        className="cursor-ring" 
-        style={{ 
-          left: `${position.x}px`, 
-          top: `${position.y}px`,
-          width: isPointer ? '60px' : '40px',
-          height: isPointer ? '60px' : '40px',
-          borderColor: isPointer ? 'hsl(var(--primary))' : 'hsl(var(--secondary))'
-        }} 
-      />
-    </>
-  );
-};
+const Cursor = () => null;
 
 const ContactModal = ({ onClose }: { onClose: () => void }) => {
   const [copied, setCopied] = useState(false);
@@ -275,10 +232,80 @@ const Footer = () => (
 
 export { Cursor, Navbar, Footer };
 
+const HOME_PORTFOLIO_GRADIENTS = [
+  "from-[#FF3CAC] to-[#784BA0]",
+  "from-[#784BA0] to-[#2B86C5]",
+  "from-[#2B86C5] to-[#00F5A0]",
+  "from-[#FF6B35] to-[#FF3CAC]",
+  "from-[#00F5A0] to-[#784BA0]",
+  "from-[#1A1A2E] to-[#FF3CAC]",
+];
+
+type HomePortfolioItem = {
+  id: number;
+  title: string;
+  category: "logos" | "social-media" | "posters" | "business-cards" | "ui-ux" | "adobe-stock" | "ai-generated";
+  image: string | null;
+  isNew?: boolean;
+};
+
+type HomePortfolioThumbProps = {
+  item: HomePortfolioItem;
+  thumbIndex: number;
+  inView: boolean;
+};
+
+const HomePortfolioThumb = ({ item, thumbIndex, inView }: HomePortfolioThumbProps) => {
+  const [imageFailed, setImageFailed] = useState(false);
+  const showFallback = !item.image || imageFailed;
+  const gradient = HOME_PORTFOLIO_GRADIENTS[thumbIndex % HOME_PORTFOLIO_GRADIENTS.length];
+
+  return (
+    <div
+      className={`thumb group relative aspect-square rounded-[10px] overflow-hidden bg-[#111118] cursor-pointer transition-all duration-300 ${
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      }`}
+      style={{ transitionDelay: `${thumbIndex * 35}ms` }}
+    >
+      {item.isNew && (
+        <span className="absolute top-1.5 right-1.5 z-20 bg-[#FF3CAC] text-white font-mono text-[0.5rem] px-1.5 py-0.5 rounded-[4px] animate-[pulse_1.5s_ease-in-out_infinite]">
+          NEW
+        </span>
+      )}
+
+      {showFallback ? (
+        <>
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+          <span className="absolute inset-0 flex items-center justify-center font-serif text-[2rem] text-white opacity-15 select-none">
+            {item.category.charAt(0).toUpperCase()}
+          </span>
+          <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 text-[0.55rem] font-mono text-white/40 bg-black/25 px-1.5 py-0.5 rounded">
+            Soon
+          </span>
+        </>
+      ) : (
+        <img
+          src={item.image || ""}
+          alt={item.title}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.08]"
+          loading="lazy"
+          decoding="async"
+          onError={() => setImageFailed(true)}
+        />
+      )}
+
+      <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-end p-2">
+        <span className="text-white text-[0.7rem] font-semibold font-sans truncate">{item.title}</span>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
-  const [activeFilter, setActiveFilter] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
   const [showContact, setShowContact] = useState(false);
+  const [portfolioInView, setPortfolioInView] = useState(false);
+  const portfolioSectionRef = useRef<HTMLElement | null>(null);
   
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem('ag-loaded');
@@ -293,18 +320,260 @@ export default function Home() {
     }
   }, []);
   
-  const filters = ["All", "Logos", "Social Media", "Posters", "Business Cards", "UI/UX"];
-  
-  const portfolioItems = [
-    { id: 1, title: "Tanka Traditional",        category: "Logos", color: "from-[#888] to-[#ccc]",           image: imgTanka },
-    { id: 2, title: "Kalam",                    category: "Logos", color: "from-[#111] to-[#444]",           image: imgKalam },
-    { id: 3, title: "Botho Menswear",           category: "Logos", color: "from-[#0d1117] to-[#1c2a3a]",    image: imgBotho },
-    { id: 4, title: "Gamer E-Sports Team",      category: "Logos", color: "from-[#000] to-[#222]",           image: imgGamer },
-    { id: 5, title: "The Unlimited Technology", category: "Logos", color: "from-[#0a0a0a] to-[#002233]",    image: imgUnlimitedTech },
-    { id: 6, title: "Healthy Food",             category: "Logos", color: "from-[#f9f3e8] to-[#fce4ec]",    image: imgHealthyFood },
-  ];
+  useEffect(() => {
+    const section = portfolioSectionRef.current;
+    if (!section) return;
 
-  const filteredPortfolio = activeFilter === "All" ? portfolioItems : portfolioItems.filter(item => item.category === activeFilter);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPortfolioInView(true);
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  const categoryMeta = {
+    logos: { label: "Logos", icon: "🧿", accent: "#2B86C5" },
+    "social-media": { label: "Social Media", icon: "✦", accent: "#FF3CAC" },
+    posters: { label: "Posters", icon: "📌", accent: "#FF6B35" },
+    "business-cards": { label: "Business Cards", icon: "▣", accent: "#784BA0" },
+    "ui-ux": { label: "UI/UX", icon: "◫", accent: "#00F5A0" },
+    "adobe-stock": { label: "Adobe Stock", icon: "⬢", accent: "#2B86C5" },
+    "ai-generated": { label: "AI-Generated", icon: "◎", accent: "#FF3CAC" },
+  } as const;
+
+  // Load images from folders
+  const socialMediaImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/Social media Post/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const adobeStockImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/adobe stock/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const aiGeneratedImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/ai generations/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const postersImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/posters/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const uiImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/UI/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  const logoImageModules = useMemo(
+    () =>
+      import.meta.glob("@assets/logo/*.{png,jpg,jpeg,webp}", {
+        eager: true,
+        import: "default",
+      }) as Record<string, string>,
+    [],
+  );
+
+  // Helper: compact stem for deduping logos
+  const toCompactStem = (fileName: string) =>
+    fileName.replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+  const existingLogoStems = new Set([
+    "202308092035470000",
+    "202308162055550000",
+    "202309162009490000",
+    "202401150813310000",
+    "202401161153260000",
+    "202401171732120000",
+  ]);
+
+  // Build dynamic items from modules
+  const dynamicSocialMediaItems = useMemo(
+    () =>
+      Object.entries(socialMediaImageModules)
+        .slice(0, 8)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Social Media ${index + 1}`;
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_-]/g, " ").trim();
+          return {
+            id: 1000 + index,
+            title: title || `Social Media Post ${index + 1}`,
+            category: "social-media",
+            image,
+            isNew: index < 2,
+          };
+        }),
+    [socialMediaImageModules],
+  );
+
+  const dynamicAdobeStockItems = useMemo(
+    () =>
+      Object.entries(adobeStockImageModules)
+        .slice(0, 8)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Adobe Stock ${index + 1}`;
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_\-\[\]()]/g, " ").replace(/\s+/g, " ").trim();
+          return {
+            id: 2000 + index,
+            title: title || `Adobe Stock Artwork ${index + 1}`,
+            category: "adobe-stock",
+            image,
+            isNew: index === 0,
+          };
+        }),
+    [adobeStockImageModules],
+  );
+
+  const dynamicAIGeneratedItems = useMemo(
+    () =>
+      Object.entries(aiGeneratedImageModules)
+        .slice(0, 8)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `AI Generated ${index + 1}`;
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_-]/g, " ").trim();
+          return {
+            id: 3000 + index,
+            title: title || `AI Visual ${index + 1}`,
+            category: "ai-generated",
+            image,
+            isNew: index < 2,
+          };
+        }),
+    [aiGeneratedImageModules],
+  );
+
+  const dynamicPostersItems = useMemo(
+    () =>
+      Object.entries(postersImageModules)
+        .slice(0, 8)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Poster ${index + 1}`;
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_\-\[\]()]/g, " ").replace(/\s+/g, " ").trim();
+          return {
+            id: 4000 + index,
+            title: title || `Poster ${index + 1}`,
+            category: "posters",
+            image,
+            isNew: false,
+          };
+        }),
+    [postersImageModules],
+  );
+
+  const dynamicUIItems = useMemo(
+    () =>
+      Object.entries(uiImageModules)
+        .slice(0, 8)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `UI Screen ${index + 1}`;
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_-]/g, " ").trim();
+          return {
+            id: 5000 + index,
+            title: title || `UI Design ${index + 1}`,
+            category: "ui-ux",
+            image,
+            isNew: false,
+          };
+        }),
+    [uiImageModules],
+  );
+
+  const dynamicLogoItems = useMemo(
+    () => {
+      const seen = new Set<string>();
+      return Object.entries(logoImageModules)
+        .map(([path, image], index) => {
+          const fileName = path.split("/").pop() || `Logo ${index + 1}`;
+          const compact = toCompactStem(fileName);
+          return { image, fileName, compact };
+        })
+        .filter(({ compact }) => {
+          if (existingLogoStems.has(compact) || seen.has(compact)) return false;
+          seen.add(compact);
+          return true;
+        })
+        .slice(0, 4)
+        .map(({ image, fileName }, index) => {
+          const title = fileName.replace(/\.[^.]+$/, "").replace(/[_-]/g, " ").trim();
+          return {
+            id: 6000 + index,
+            title: title || `Logo Design ${index + 1}`,
+            category: "logos",
+            image,
+            isNew: false,
+          };
+        });
+    },
+    [logoImageModules],
+  );
+
+  const portfolioData: HomePortfolioItem[] = useMemo(
+    () => [
+      // Static imported logos
+      { id: 1, title: "Tanka Traditional", category: "logos", image: imgTanka, isNew: false },
+      { id: 2, title: "Kalam", category: "logos", image: imgKalam, isNew: false },
+      { id: 3, title: "Botho", category: "logos", image: imgBotho, isNew: false },
+      { id: 4, title: "Gamer Logo", category: "logos", image: imgGamer, isNew: false },
+      { id: 5, title: "Tech Gear Logo", category: "logos", image: imgUnlimitedTech, isNew: false },
+      { id: 6, title: "Fresh Brand Logo", category: "logos", image: imgHealthyFood, isNew: false },
+      ...dynamicLogoItems,
+      ...dynamicSocialMediaItems,
+      ...dynamicPostersItems,
+      ...dynamicUIItems,
+      ...dynamicAdobeStockItems,
+      ...dynamicAIGeneratedItems,
+    ],
+    [
+      dynamicLogoItems,
+      dynamicSocialMediaItems,
+      dynamicPostersItems,
+      dynamicUIItems,
+      dynamicAdobeStockItems,
+      dynamicAIGeneratedItems,
+    ],
+  );
+
+  const topCategories = useMemo(() => {
+    const grouped = portfolioData.reduce<Record<string, HomePortfolioItem[]>>((acc, item) => {
+      const key = item.category;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(item);
+      return acc;
+    }, {});
+
+    return Object.entries(grouped)
+      .map(([category, items]) => ({ category, items }))
+      .sort((a, b) => b.items.length - a.items.length)
+      .slice(0, 3);
+  }, [portfolioData]);
 
   return (
     <div className="bg-[#07060F] min-h-screen text-foreground selection:bg-primary selection:text-white">
@@ -706,70 +975,100 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="py-32 bg-card/30 relative">
+      <section id="portfolio" ref={portfolioSectionRef} className="py-32 bg-card/30 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden flex justify-center items-center w-full h-full z-0">
           <span className="text-[clamp(6rem,15vw,12rem)] font-serif font-bold text-white/[0.03]">WORK</span>
         </div>
         <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-            <div className="mb-8 md:mb-0">
-              <span className="text-[#FF3CAC] font-mono text-sm uppercase tracking-widest block mb-4">Selected Works</span>
-              <h3 className="text-4xl md:text-5xl font-serif font-bold text-white">A showcase of creativity, strategy, and craft.</h3>
-            </div>
+          <div
+            className={`mb-12 transition-all duration-350 ease-out ${
+              portfolioInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            <span className="text-[#FF3CAC] font-mono text-sm uppercase tracking-widest block mb-4">Selected Works</span>
+            <h3 className="text-4xl md:text-5xl font-serif font-bold text-white">A showcase of creativity, strategy, and craft.</h3>
           </div>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence>
-              {portfolioItems.map((item) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                  key={item.id}
-                  className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-none bg-[#07060F] border border-white/5"
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
+            {topCategories.map((group, colIndex) => {
+              const meta = categoryMeta[group.category as keyof typeof categoryMeta];
+              const visibleItems = group.items.slice(0, 8);
+
+              return (
+                <div
+                  key={group.category}
+                  className={`rounded-2xl border border-white/6 bg-[#0D0C15]/70 p-4 transition-all duration-350 ease-out ${
+                    portfolioInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+                  }`}
+                  style={{ transitionDelay: `${colIndex * 120}ms` }}
                 >
-                  {item.image ? (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                        const fb = e.currentTarget.parentElement?.querySelector(".img-fallback") as HTMLElement | null;
-                        if (fb) fb.style.display = "flex";
-                      }}
-                    />
-                  ) : null}
-                  <div
-                    className="img-fallback absolute inset-0 flex-col items-center justify-center"
-                    style={{ display: item.image ? "none" : "flex" }}
-                  >
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
-                    <span className="relative text-[5rem] font-serif font-bold text-white opacity-20 select-none pointer-events-none">
-                      {item.category.charAt(0)}
-                    </span>
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                      <span className="font-mono text-[0.65rem] text-white/50 bg-black/30 px-2 py-0.5 rounded whitespace-nowrap">Coming Soon</span>
+                  <div className="pb-[14px] border-b border-white/7 mb-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[1.2rem]" style={{ color: meta.accent }}>{meta.icon}</span>
+                      <span className="text-white font-sans text-[0.95rem] font-bold">{meta.label}</span>
                     </div>
+                    <span
+                      className="font-mono text-[0.65rem] rounded-[20px] px-2.5 py-[3px] border"
+                      style={{
+                        color: meta.accent,
+                        backgroundColor: `${meta.accent}1F`,
+                        borderColor: `${meta.accent}4D`,
+                      }}
+                    >
+                      {group.items.length} works
+                    </span>
                   </div>
 
-                  <div className="absolute inset-0 bg-black/70 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out flex flex-col justify-end p-6 z-10">
-                    <span className="text-[#00F5A0] font-mono text-xs uppercase tracking-widest mb-2">{item.category}</span>
-                    <h4 className="text-xl font-serif text-white mb-4">{item.title}</h4>
-                    <Link href={`/portfolio?category=${encodeURIComponent(item.category)}`} className="self-start text-sm font-mono text-white flex items-center hover:text-[#FF3CAC] transition-colors cursor-none">
-                      View Project <ArrowRight className="ml-2 w-4 h-4" />
-                    </Link>
+                  <div className="grid grid-cols-2 gap-2">
+                    {visibleItems.map((item, itemIndex) => (
+                      <HomePortfolioThumb
+                        key={item.id}
+                        item={item}
+                        thumbIndex={itemIndex}
+                        inView={portfolioInView}
+                      />
+                    ))}
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-          
-          <div className="mt-16 text-center">
-            <Link href="/portfolio" className="inline-block px-8 py-4 border border-[#784BA0] text-white font-mono uppercase tracking-widest text-sm rounded shadow-[0_0_15px_rgba(120,75,160,0.3)] hover:bg-[#784BA0] transition-all hover:scale-105">
-              View All Projects
+
+                  <Link
+                    href={`/portfolio?category=${encodeURIComponent(meta.label)}`}
+                    className="mt-3 w-full inline-flex items-center justify-center px-3 py-2.5 rounded-lg font-mono text-[0.75rem] tracking-[0.12em] uppercase border transition-all duration-250 hover:-translate-y-0.5"
+                    style={{
+                      color: meta.accent,
+                      borderColor: `${meta.accent}59`,
+                    }}
+                  >
+                    See All {meta.label} →
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="font-mono text-[0.75rem] text-white/40 mb-6">
+              {topCategories.map((group, index) => {
+                const meta = categoryMeta[group.category as keyof typeof categoryMeta];
+                return (
+                  <React.Fragment key={group.category}>
+                    {index > 0 && <span className="text-[#FF3CAC] mx-2">✦</span>}
+                    <span>{group.items.length} {meta.label}</span>
+                  </React.Fragment>
+                );
+              })}
+              <span className="text-[#FF3CAC] mx-2">✦</span>
+              <span>More on the way</span>
+            </p>
+
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center justify-center px-11 py-4 rounded-[50px] text-white font-sans font-semibold transition-all duration-300 hover:scale-[1.04]"
+              style={{
+                background: "linear-gradient(135deg, #FF3CAC, #784BA0)",
+                boxShadow: "0 0 28px rgba(255,60,172,0.3)",
+              }}
+            >
+              View Full Portfolio →
             </Link>
           </div>
         </div>

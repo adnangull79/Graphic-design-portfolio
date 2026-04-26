@@ -114,7 +114,6 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none; /* Hide default cursor for custom cursor */
   }
 
   html {
@@ -128,44 +127,6 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
-}
-
-/* Custom animated cursor */
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: hsl(var(--primary));
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary));
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 2px solid hsl(var(--secondary));
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, border-color 0.2s;
-}
-
-/* Add hover state for cursor on interactive elements */
-a:hover ~ .cursor-dot, button:hover ~ .cursor-dot {
-  background-color: hsl(var(--accent));
-  box-shadow: 0 0 10px hsl(var(--accent)), 0 0 20px hsl(var(--accent));
-}
-
-a:hover ~ .cursor-ring, button:hover ~ .cursor-ring {
-  width: 60px;
-  height: 60px;
-  border-color: hsl(var(--primary));
 }
 
 /* Animations */
